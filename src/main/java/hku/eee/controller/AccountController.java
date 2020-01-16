@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,18 +21,18 @@ public class AccountController {
     private AccountService accountService;
 
     @RequestMapping("/findAll")
-    public String findAll(Model model){
+    public ModelAndView findAll(){
+        ModelAndView mv = new ModelAndView();
         System.out.println("findAll: success!");
         List<Account> list = accountService.findAll();
-        model.addAttribute("list", list);
-
-        return "list";
+        mv.addObject("list", list);
+        mv.setViewName("list");
+        return mv ;
     }
     @RequestMapping("/save")
     public void saveAccount(Account account, HttpServletRequest request, HttpServletResponse response) throws IOException {
         accountService.saveAccount(account);
         response.sendRedirect(request.getContextPath() + "/account/findAll");
-        return;
     }
 
 }
