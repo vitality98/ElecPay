@@ -18,7 +18,7 @@ import java.util.List;
 public class test {
 
     @Test
-    public void runSpring(){
+    public void runSpring() {
 
         ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         AccountService accountService = (AccountService) ac.getBean("accountService");
@@ -49,15 +49,15 @@ public class test {
         AccountDao accountDao = session.getMapper(AccountDao.class);
         Account account = new Account();
         account.setName("test");
-        account.setMoney(6666d);
-        accountDao.saveAccount(account);
+        account.setBalance(6666d);
+        accountDao.addAccount(account);
         session.commit();
 
         session.close();
         in.close();
     }
 
-    public void test(){
+    public void test() {
         System.out.println("hello world!");
         System.out.println("123");
     }

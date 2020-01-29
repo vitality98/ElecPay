@@ -1,4 +1,5 @@
-<%--
+<%@ page import="org.springframework.security.core.context.SecurityContext" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %><%--
   Created by IntelliJ IDEA.
   User: lixuran
   Date: 2019/12/27
@@ -12,13 +13,16 @@
 </head>
 <body>
 
-    <a href="/account/findAll">Test</a>
+    <a href="/account/findAll.do">Test</a>
 
     <form action="account/save" method="post">
         name: <input type="text" name="name" /><br/>
         money: <input type="text" name="money" /><br/>
         <input type="submit" value="save" /><br/>
     </form>
-
+    <%
+        final String name = SecurityContextHolder.getContext().getAuthentication().getName();
+    %>
+    <%= name %>
 </body>
 </html>

@@ -1,14 +1,30 @@
 package hku.eee.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Account
  */
 public class Account implements Serializable {
+
     private Integer id;
     private String name;
-    private double money;
+    private Double balance;
+    private String username;
+    private String password;
+    private String email;
+    private String gender;
+    private Date birthday;
+    private Integer status;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;
@@ -26,12 +42,52 @@ public class Account implements Serializable {
         this.name = name;
     }
 
-    public double getMoney() {
-        return money;
+    public Double getBalance() {
+        return balance;
     }
 
-    public void setMoney(Double money) {
-        this.money = money;
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     @Override
@@ -39,7 +95,14 @@ public class Account implements Serializable {
         return "Account{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", money=" + money +
+                ", balance=" + balance +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthday=" + birthday +
+                ", status=" + status +
                 '}';
     }
 }
+

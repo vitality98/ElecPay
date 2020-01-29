@@ -15,6 +15,8 @@
     <context:component-scan base-package="hku.eee">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+   <import resource="classpath:spring-security.xml" />
+
 
     <!-- Mybatis Config -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">

@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css">
+    	<link rel="stylesheet" href="css/common.css">
+    	<link rel="stylesheet" href="css/home.css">
+    	<script type="text/javascript" src="js/common.js" ></script>
+	</head>
+
+	<body style="background-color:#f5f5f5">
+		<header class="mui-bar mui-bar-nav index-bar">
+		    <div class="mui-input-row mui-search">  
+		        <input type="search" class="mui-input-speech mui-input-clear" placeholder="手机充值">
+		    </div>
+		    <a href="#popover"  class="contact" id="add" >
+		    	<span class="icon iconfont icon-tianjia"></span>
+		    </a> 
+		    <a href="/logout" class="contact">
+		    	<span class="icon iconfont icon-shejiao"></span>
+		    </a>
+		    
+		</header> 
+		<div id="popover" class="mui-popover mypopover"> 
+		  	<ul class="mui-table-view">
+			    <li class="mui-table-view-cell"><a href="#"><span class="icon iconfont icon-tianjialeimu"></span>&nbsp;&nbsp;发起群聊</a></li>
+			    <li class="mui-table-view-cell"><a href="#"><span class="icon iconfont icon-tianjia"></span>&nbsp;&nbsp;添加朋友</a></li>
+			    <li class="mui-table-view-cell"><a href="#" id="saoyisao1"><span class="icon iconfont icon-saoyisao"></span>&nbsp;&nbsp;扫一扫</a></li>
+			    <li class="mui-table-view-cell"><a href="#"><span class="icon iconfont icon-fukuanma"></span>&nbsp;&nbsp;收钱</a></li>
+		  	</ul>
+		</div>
+		<div class="mui-content" > 
+			 <div class="mui-row myicon"> 
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a href="" id="saoyisao"> 
+		                    <span class="icon iconfont icon-saoyisao"></span>
+							<span class="wenzi">扫一扫</span>   
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a >
+		                    <span class="icon iconfont icon-fukuanma"></span>
+		                    <span class="wenzi">付款</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a >
+		                    <span class="icon iconfont icon-saoyisao"></span>
+		                    <span class="wenzi">收钱</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a href="/park/findPark.do">
+		                    <span class="icon iconfont icon-lijin"></span>
+		                    <span class="wenzi">卡包</span>
+		                </a>
+		            </li>
+		        </div>
+    		</div>
+			<div class="mui-row myicon secondlineicon">
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="" class="zhuanzhang">
+		                    <span class="icon iconfont icon-zhuanzhang"></span>
+							<span class="wenzi">转账</span>      
+		                </a>
+		            </li>
+		        </div>
+		        
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-xinyongqiahuankuan"></span>
+							<span class="wenzi" style="color: grey">信用卡还款</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                     <span class="icon iconfont icon-shoujichongzhi"></span>
+							<span class="wenzi" style="color: grey">手机充值</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-icon"></span>
+							<span class="wenzi" style="color: grey">余额宝</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-taobao"></span>
+							<span class="wenzi" style="color: grey">淘票票</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-kuaidi"></span>
+							<span class="wenzi" style="color: grey">物流</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-shuidianmei"></span>
+							<span class="wenzi" style="color: grey">生活缴费</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-logo"></span>
+							<span class="wenzi" style="color: grey">芝麻信用</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-jipiao"></span>
+							<span class="wenzi" style="color: grey">机票</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-zhaocaibao"></span>
+							<span class="wenzi" style="color: grey">招财宝</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-dache"></span>
+							<span class="wenzi" style="color: grey">打车</span>
+		                </a>
+		            </li>
+		        </div>
+		        <div class="mui-col-sm-3 mui-col-xs-3">
+		            <li class="mui-table-view-cell">
+		                <a class="">
+		                    <span class="icon iconfont icon-tianmaobao"></span>
+							<span class="wenzi" style="color: grey">天猫宝</span>
+		                </a>
+		            </li>
+		        </div>
+    		</div>
+    		<ul class="mui-table-view trees" >
+    		    <li class="mui-table-view-cell mui-media">
+    		        <a href="javascript:;">
+    		            <img class="mui-media-object mui-pull-left" src="img/1.png">
+    		            <div class="mui-media-body">
+    		                幸福
+    		                <p class="mui-ellipsis mui-navigate-right">
+    		                	又有好友收到你的绿色能量
+    		                	
+    		                </p>
+    		                <span class="mui-badge mui-badge-danger" style="position:absolute;right:45px;top:20px;">1</span>
+    		            </div>
+    		        </a>
+    		    </li>
+    		</ul>
+    		<div id="slider" class="mui-slider home-slider" >
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="img/banner.png">
+						</a> 
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/banner.png">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/banner.png">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/banner.png">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/banner.png">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="img/banner.png">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<div class="mui-row headtitle">
+			    <div class="mui-col-sm-12 mui-col-xs-12" style="padding-left: 15px; padding-top:10px;padding-bottom:10px;">|惠支付</div>
+			</div>
+			<div class="mui-row">
+			    <div class="mui-col-sm-6 mui-col-xs-6 rightboderline">
+			    	<ul class="mui-table-view">
+			    	    <li class="mui-table-view-cell mui-media">
+			    	        <a href="javascript:;">
+			    	            <img class="mui-media-object mui-pull-right" src="img/rightimg.png">
+			    	            <div class="mui-media-body">
+			    	                <p class="huititle">花唄短信包月</p>
+			    	                <p class="mui-ellipsis">安全有保障</p> 
+			    	            </div>
+			    	        </a>
+			    	    </li>
+			    
+			    	</ul>
+			    </div>
+			    <div class="mui-col-sm-6 mui-col-xs-6">
+			    	<ul class="mui-table-view">
+			    	    <li class="mui-table-view-cell mui-media">
+			    	        <a href="javascript:;">
+			    	            <img class="mui-media-object mui-pull-right" src="img/rightimg1.png">
+			    	            <div class="mui-media-body">
+			    	               <p class="huititle">我的奖励金</p>
+			    	               <p class="mui-ellipsis">立即查看</p>
+			    	            </div> 
+			    	        </a>
+			    	    </li>
+			    
+			    	</ul>
+			    </div>
+			</div>
+			<div class="mui-row headtitle">
+			    <div class="mui-col-sm-12 mui-col-xs-12" style="padding-left: 15px; padding-top:10px;padding-bottom:10px;">|生活服务</div>
+			</div>
+			<div class="mui-row">
+			    <div class="mui-col-sm-6 mui-col-xs-6 rightboderline">
+			    	<ul class="mui-table-view">
+			    	    <li class="mui-table-view-cell mui-media">
+			    	        <a href="javascript:;">
+			    	            <img class="mui-media-object mui-pull-right" src="img/img1.png">
+			    	            <div class="mui-media-body">
+			    	                <p class="huititle">排号难排队久</p>
+			    	                <p class="mui-ellipsis">一招帮你破解</p> 
+			    	            </div>
+			    	        </a>
+			    	    </li>
+			    
+			    	</ul>
+			    </div>
+			    <div class="mui-col-sm-6 mui-col-xs-6">
+			    	<ul class="mui-table-view">
+			    	    <li class="mui-table-view-cell mui-media">
+			    	        <a href="javascript:;">
+			    	            <img class="mui-media-object mui-pull-right" src="img/img2.png">
+			    	            <div class="mui-media-body">
+			    	               <p class="huititle">瓜分五亿现金</p>
+			    	               <p class="mui-ellipsis">快人一步集齐五福</p>
+			    	            </div>  
+			    	        </a>
+			    	    </li>
+			    
+			    	</ul>
+			    </div>
+			</div>
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var slider = mui("#slider");
+			slider.slider({
+				interval: 5000
+			});
+//			var add = document.getElementById("add");
+//			add.addEventListener("tap",function(){
+//				alert(1);
+//			})  
+			
+			var saoyisao = document.getElementById("saoyisao");
+			saoyisao.addEventListener("tap",function(){
+				//clicked('saoma.html',true,true)
+				mui.openWindow({
+					url:"saoma.html",
+					id:"saoma.html",
+					waiting:{
+				      autoShow:false,//自动显示等待框，默认为true
+				      title:'正在加载...',//等待对话框上显示的提示内容
+				      duration:200
+				    }  
+				});
+			})
+			var saoyisao1 = document.getElementById("saoyisao1");
+			saoyisao1.addEventListener("tap",function(){
+				//clicked('saoma.html',true,true)
+				mui.openWindow({
+					url:"saoma.html",
+					id:"saoma.html",
+					waiting:{
+				      autoShow:false,//自动显示等待框，默认为true
+				      title:'正在加载...',//等待对话框上显示的提示内容
+				      duration:200
+				    }  
+				});
+			}) 
+		</script>
+		<script type="text/javascript" src="js/immersed.js" ></script>
+	</body>
+
+</html>

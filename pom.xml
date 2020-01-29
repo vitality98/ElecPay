@@ -79,6 +79,9 @@
     <log4j.version>1.2.12</log4j.version>
     <mysql.version>8.0.18</mysql.version>
     <mybatis.version>3.4.5</mybatis.version>
+    <jackson.version>2.9.9</jackson.version>
+    <security.version>5.0.2.RELEASE</security.version>
+
   </properties>
 
   <dependencies>
@@ -191,6 +194,36 @@
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
+
+    <!-- jackson -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- spring security -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-cas</artifactId>
+      <version>${security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${security.version}</version>
+    </dependency>
+    <!-- end -->
 
   </dependencies>
 

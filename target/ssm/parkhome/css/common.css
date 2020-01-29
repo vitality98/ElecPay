@@ -1,0 +1,60 @@
+*{
+	list-style: none;
+}
+.footer{
+	height: 50px!important; 
+	background-color: #fafbfe;
+	border-top:1px solid #e1e1e1!important;
+	box-shadow: 0 0 0;
+} 
+.footer a span:first-child{
+	font-size: 25px!important;
+}
+
+/*顶栏样式设定*/
+.mui-bar-nav {
+    -webkit-box-shadow: 0 0 0 #ccc; 
+    /* box-shadow: 0 1px 6px #ccc; */
+}
+.index-bar{
+	height: 50px; 
+	background-color: #1b82d2;
+}
+.index-bar input {
+	background-color: #1772b9; 
+} 
+.index-bar .mui-active .mui-placeholder span{
+	font-size: 12px!important;
+	color: white!important;
+}
+.index-bar .mui-placeholder span{
+	font-size: 12px;
+	color: white;
+}
+.mui-search .mui-placeholder .mui-icon{
+	color: white;
+}
+.index-bar .mui-search .mui-placeholder {
+	text-align: left;
+}
+.mui-input-row .mui-input-speech~.mui-icon-speech {
+	font-size: 18px!important; 
+}
+.mui-input-clear{
+	color: white;
+	font-size: 12px;;
+}
+.mui-search {
+	width:75%;  
+	margin-top: 2px;
+	float: left;
+}
+.contact {
+	float: right;
+	line-height: 50px;
+	color: white;
+	margin-right: 10px;
+}
+.contact span {
+	font-size: 20px; 
+}

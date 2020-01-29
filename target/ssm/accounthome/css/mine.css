@@ -1,0 +1,73 @@
+.mine {
+	height: 50px;
+	line-height: 50px;
+	color: white;
+}
+.settings {
+	height: 50px;
+	line-height: 50px;
+	color: white;
+}
+.mine-header {
+	background-color: #1b82d2;
+	height: 90px; 
+	margin-top: 0px!important;
+}
+.mine-img {
+	height: 70px!important;
+	max-width: 70px!important;
+	width: 70px!important;
+}
+.mui-table-view:before {
+	
+	background-color: white!important;
+}
+.mui-table-view:after{
+	background-color: white!important;
+}
+
+.mine-infor {
+	font-size: 18px;
+	color: white;
+	margin-top: 8px;
+}
+.infor {
+	color: #eee; 
+}
+.mine-content {
+	margin-top: 20px;
+}
+.mine-header a {
+	color: white!important;
+	font-size: 25px;	
+}
+
+.mine-header .mui-navigate-right:after {
+	color: white!important;
+}
+.lititle{
+	display: block;
+	height: 30px; 
+	line-height: 30px; 
+	margin-left: 10px;
+}
+.mineicon:nth-child(1) {
+	font-size: 28px; 
+	color: #e8a010;
+	line-height: 30px; 
+	float: left;
+}
+
+.icon-xinyongqiahuankuan {
+	font-size: 28px;  
+	color: red!important;
+	line-height: 30px; 
+	float: left;
+}
+
+.icon-icon{
+	color:#108ee9!important;
+	font-size: 28px;  
+	line-height: 30px;  
+	float: left;
+}
