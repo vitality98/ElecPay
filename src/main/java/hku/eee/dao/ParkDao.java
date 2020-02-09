@@ -1,6 +1,7 @@
 package hku.eee.dao;
 
 import hku.eee.domain.Account;
+import hku.eee.domain.Car;
 import hku.eee.domain.Park;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -34,4 +35,6 @@ public interface ParkDao {
     @Select("select count(*) from car where park = #{id}")
     public Integer countCar(Integer id);
 
+    @Select("select * from car where park=#{id}")
+    public  List<Car> findCars(Integer id);
 }

@@ -1,6 +1,7 @@
 package hku.eee.controller;
 
 import hku.eee.domain.Account;
+import hku.eee.domain.Car;
 import hku.eee.domain.Park;
 import hku.eee.service.ParkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +52,13 @@ public class ParkController {
         return "redirect:/park/findAll";
     }
 
-    @RequestMapping("/findPark.do")
+    @RequestMapping("/findParkBalance.do")
     public ModelAndView findParkByName() {
         ModelAndView mv = new ModelAndView();
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Park park = parkService.findByUserName(username);
         mv.addObject("park", park);
-        mv.setViewName("/park/park");
+        mv.setViewName("/park/change");
         return mv;
     }
 
@@ -66,6 +67,18 @@ public class ParkController {
         System.out.println("!!!!!!!findparkbyId");
         Park park = parkService.findById(id);
         return park;
+    }
+
+    @RequestMapping("/parkhome.do")
+    public ModelAndView findParkByName2() {
+        ModelAndView mv = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Park park = parkService.findByUserName(username);
+        List<Car> cars = parkService.findCars(park.getId());
+        mv.addObject("cars", cars);
+        mv.addObject("park", park);
+        mv.setViewName("/park/parkhome");
+        return mv;
     }
 
 }

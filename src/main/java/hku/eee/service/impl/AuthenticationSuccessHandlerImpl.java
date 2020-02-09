@@ -29,6 +29,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         if("ROLE_ACCOUNT".equals(authority.getAuthority()))
             httpServletResponse.sendRedirect("/accounthome/accounthome.html");
         else
-            httpServletResponse.sendRedirect("/parkhome/parkhome.html");
+            httpServletResponse.sendRedirect("/park/parkhome.do");
     }
 }

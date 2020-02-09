@@ -2,6 +2,7 @@ package hku.eee.service.impl;
 
 import hku.eee.dao.ParkDao;
 import hku.eee.domain.Account;
+import hku.eee.domain.Car;
 import hku.eee.domain.Park;
 import hku.eee.service.ParkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,11 @@ public class ParkServiceImpl implements ParkService {
     public Integer countCar(Integer id) {
         Integer count = parkDao.countCar(id);
         return count;
+    }
+
+    @Override
+    public List<Car> findCars(Integer id) {
+        List<Car> cars = parkDao.findCars(id);
+        return cars;
     }
 }
