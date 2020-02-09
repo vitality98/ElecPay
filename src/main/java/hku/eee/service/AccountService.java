@@ -17,4 +17,7 @@ public interface AccountService {
     public void transferOut(String receiver, Double amount) throws Exception;
 
     public List<Car> findMyCars(Authentication authentication);
+
+    public void topUp(Double amount, Authentication authentication);
+
 }

@@ -15,8 +15,19 @@ public class Account implements Serializable {
     private String password;
     private String email;
     private String gender;
+
+    private String tempdate;
     private Date birthday;
     private Integer status;
+
+
+    public String getTempdate() {
+        return tempdate;
+    }
+
+    public void setTempdate(String tempdate) {
+        this.tempdate = tempdate;
+    }
 
     public Integer getStatus() {
         return status;

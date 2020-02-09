@@ -1,6 +1,7 @@
 package hku.eee.test;
 
 import hku.eee.dao.AccountDao;
+import hku.eee.dao.CarDAO;
 import hku.eee.domain.Account;
 import hku.eee.service.AccountService;
 import org.apache.ibatis.io.Resources;
@@ -22,7 +23,6 @@ public class test {
 
         ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         AccountService accountService = (AccountService) ac.getBean("accountService");
-        accountService.findAll();
 
     }
     @Test
@@ -32,10 +32,8 @@ public class test {
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
         SqlSession session = factory.openSession();
         AccountDao accountDao = session.getMapper(AccountDao.class);
-        List<Account> list = accountDao.findAll();
-        for(Account account : list){
-            System.out.println(account);
-        }
+        CarDAO carDAO = session.getMapper((CarDAO.class));
+        carDAO.connectAccount(1,5);
 
         session.close();
         in.close();

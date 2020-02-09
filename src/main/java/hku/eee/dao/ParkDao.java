@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface ParkDao {
 
-    @Select("select * from park")
+    @Select("select * from park where id != 2")
     public List<Park> findAll();
 
     /*
@@ -30,5 +30,8 @@ public interface ParkDao {
 
     @Select("select * from park where id = #{id}")
     public Park findById(Integer id);
+
+    @Select("select count(*) from car where park = #{id}")
+    public Integer countCar(Integer id);
 
 }

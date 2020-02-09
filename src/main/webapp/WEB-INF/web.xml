@@ -8,6 +8,7 @@
   <description></description>
   <distributable></distributable>
 
+
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml</param-value>
@@ -43,6 +44,7 @@
   </listener>
 
   <!--
+
   <listener>
     <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
   </listener>
@@ -92,9 +94,14 @@
   </servlet-mapping>
 -->
 
+
   <servlet-mapping>
     <servlet-name>dispatcherServlet</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>/welcome/welcome.html</welcome-file>
+  </welcome-file-list>
 
 </web-app>

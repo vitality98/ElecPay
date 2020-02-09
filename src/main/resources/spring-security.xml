@@ -13,7 +13,12 @@
     <http pattern="/img/**" security="none"/>
     <http pattern="/js/**" security="none"/>
     <http pattern="/plugins/**" security="none"/>
-    <http pattern="/index.html" security="none"/>
+    <http pattern="/welcome/**" security="none"/>
+    <http pattern="/welcome/welcome.html" security="none"/>
+    <http pattern="/account/register.do" security="none"/>
+    <http pattern="/account/verifyUser.do" security="none"/>
+    <http pattern="/developing/**" security="none"/>
+    <http pattern="/developing/developing.html" security="none"/>
 
 
 
@@ -47,7 +52,7 @@
             <frame-options policy="SAMEORIGIN"/>
         </headers>
         -->
-        <logout invalidate-session="true" logout-url="/logout" logout-success-url="/index.html" />
+        <logout invalidate-session="true" logout-url="/logout" logout-success-url="/welcome/welcome.html" />
     </http>
 
     <!-- 配置认证管理器 -->

@@ -22,13 +22,21 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void addCar() {
+    public void addCar(String licence) {
+        carDAO.addCar(licence);
 
     }
 
     @Override
-    public Car findById() {
-        return null;
+    public Car findCarById(Integer id) {
+        Car car = carDAO.findById(id);
+        return car;
+    }
+
+    @Override
+    public Car findCarByLicence(String licence) {
+        Car car = carDAO.findByLicence(licence);
+        return car;
     }
 
     @Override
@@ -37,7 +45,18 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Park fingPark() {
+    public Park findPark() {
         return null;
+    }
+
+    @Override
+    public void connectAccount(Integer account_id, Integer car_id) {
+        System.out.println("!!!!!!!!!yyyyyyyyyyyy" + account_id + car_id);
+        carDAO.connectAccount(account_id, car_id);
+    }
+
+    @Override
+    public void removeAccount(Integer account_id, Integer car_id) {
+        carDAO.removeAccount(account_id, car_id);
     }
 }

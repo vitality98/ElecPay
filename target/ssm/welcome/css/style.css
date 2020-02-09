@@ -1,0 +1,268 @@
+body {
+  background-color: #9dc0ca;
+  padding: 0px;
+  margin: 0px;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "微軟正黑體";
+
+}
+
+#app {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  font-size: xx-large;
+}
+
+#snowbanner {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  background-image: url("../img/mountains.svg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: repeat no-repeat;
+}
+#snowbanner .snow {
+  background-image: url("../img/snow.png");
+  background-repeat: repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  transition: opacity 3s;
+}
+#snowbanner .snow.snow-1 {
+  -webkit-animation-name: animateone;
+          animation-name: animateone;
+  background-size: 500px 500px;
+}
+#snowbanner .snow.snow-2 {
+  -webkit-animation-name: animatetwo;
+          animation-name: animatetwo;
+  background-size: 300px 300px;
+}
+
+@-webkit-keyframes animateone {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 500px 500px;
+  }
+}
+
+@keyframes animateone {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 500px 500px;
+  }
+}
+@-webkit-keyframes animatetwo {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 300px 900px;
+  }
+}
+@keyframes animatetwo {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 300px 900px;
+  }
+}
+.snow-speed-wrapper {
+  position: fixed;
+  width: 100%;
+  bottom: 20px;
+  z-index: 1000;
+}
+.snow-speed-wrapper .snow-speed-range {
+  width: calc(100% - 40px);
+  margin: auto;
+  max-width: 500px;
+  padding: 10px 30px;
+  background: rgba(0, 0, 0, 0.3);
+  transition: background 0.5s ease;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.snow-speed-wrapper .snow-speed-range:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: #d7dcdf;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+#range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: #fff;
+}
+
+.monster {
+  width: 150px;
+  height: 150px;
+  background-color: #E55A54;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  margin: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: jumping 0.8s infinite alternate;
+}
+.monster .eye {
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.monster .eyeball {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background-color: #0C4475;
+}
+.monster .mouth {
+  width: 32%;
+  height: 12px;
+  border-radius: 12px;
+  background-color: white;
+  margin-top: 15%;
+}
+.monster:before, .monster:after {
+  content: "";
+  display: block;
+  width: 20%;
+  height: 10px;
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.monster:before {
+  transform: translateX(-70%) rotate(45deg);
+}
+.monster:after {
+  transform: translateX(-30%) rotate(-45deg);
+}
+.monster, .monster * {
+  transition: 0.5s;
+}
+.monster.blue {
+  background-color: #0C4475;
+  animation-delay: 0.5s;
+}
+.monster.blue .mouth, .monster.blue .eyeball {
+  background-color: #E55A54;
+}
+@keyframes jumping {
+  50% {
+    top: 0;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    top: -50px;
+    box-shadow: 0px 120px 50px rgba(0, 0, 0, 0.2);
+  }
+}
+@keyframes eyemove {
+  0%,10% {
+    transform: translate(50%);
+  }
+  90%,100% {
+    transform: translate(-50%);
+  }
+}
+.monster .eyeball {
+  animation: eyemove 1.6s infinite alternate;
+}
+
+h2 {
+  color: white;
+  font-size: 40px;
+  margin-right: 50px;
+}
+
+h3 {
+  margin-top: 0;
+  opacity: 0.5;
+  color: white;
+}
+
+.pageLoading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0C4475;
+  flex-direction: column;
+  transition: opacity 0.5s 0.5s;
+}
+.pageLoading.complete {
+  opacity: 0;
+}
+.pageLoading.complete .monster {
+  transform: scale(0.01) rotate(360deg);
+}
+
+.loading {
+  width: 200px;
+  height: 8px;
+  margin-top: 80px;
+  border-radius: 5px;
+  background-color: #fff;
+  overflow: hidden;
+  transition: 0.5s;
+}
+.loading .bar {
+  background-color: #E55A54;
+  width: 0%;
+  height: 100%;
+}

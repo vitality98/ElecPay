@@ -3,6 +3,7 @@ package hku.eee.dao;
 import hku.eee.domain.Account;
 import hku.eee.domain.Car;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -34,5 +35,8 @@ public interface AccountDao {
 
     @Select("select car from account_car where account = #{account_id}")
     public List<Integer> findMyCars(Integer account_id);
+
+    @Update("update account set balance=#{balance} where username=#{username}")
+    public void topUp(Account account);
 
 }

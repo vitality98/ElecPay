@@ -1,0 +1,63 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Developing...</title>
+
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="css/loadingstyle.css"/>
+
+</head>
+<body id="return">
+
+
+<section id="snowbanner" >
+  <div class="snow snow-1"></div>
+  <div class="snow snow-2"></div>
+  <div id="app">
+
+
+    <div class="text-wrapper">
+      <div class="text part1">
+        <div>
+          <span class="letter"><div class="character">d</div> <span></span></span>
+          <span class="letter"><div class="character">e</div> <span></span></span>
+          <span class="letter"><div class="character">v</div> <span></span></span>
+          <span class="letter"><div class="character">e</div> <span></span></span>
+          <span class="letter"><div class="character">l</div> <span></span></span>
+          <span class="letter"><div class="character">o</div> <span></span></span>
+          <span class="letter"><div class="character">p</div> <span></span></span>
+        </div>
+      </div>
+      <div class="how-to"><span>Click to Return...</span></div>
+    </div>
+
+
+  </div>
+</section>
+
+
+<div class="snow-speed-wrapper">
+  <div class="snow-speed-range">
+    <input id="range-slider" type="range">
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+<script src="js/jquery.js"></script>
+
+<script>
+  $(function () {
+
+    $("#return").click(function() {
+      window.history.back(-1);
+
+    })
+
+  })
+
+
+</script>
+
+</body>
+</html>

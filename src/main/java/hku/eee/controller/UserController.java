@@ -1,5 +1,9 @@
 package hku.eee.controller;
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipayTradeWapPayRequest;
 import hku.eee.domain.Account;
 import hku.eee.domain.Park;
 import hku.eee.service.AccountService;
@@ -20,6 +24,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+
+import static com.alipay.api.AlipayConstants.APP_ID;
+import static hku.eee.alipay.config.AlipayConfig.*;
 
 @Controller
 @RequestMapping("/user")
@@ -112,4 +119,13 @@ public class UserController {
         mv.setViewName("/showQR/showQR");
         return mv;
     }
+
+
+    @RequestMapping("/topUp.do")
+    public String topUp() {
+        return "redirect:/alipay/pay.jsp";
+    }
 }
+
+
+

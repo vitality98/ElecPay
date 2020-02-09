@@ -12,4 +12,6 @@ public interface ParkService {
     public Park findByUserName(String username);
 
     public Park findById(Integer id);
+
+    public Integer countCar(Integer id);
 }

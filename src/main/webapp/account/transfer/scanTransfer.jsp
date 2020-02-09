@@ -44,7 +44,7 @@
 				<h2>Amount</h2>
 				<div class="aui-input-head b-line">
 					<i>￥</i>
-					<input id="amount" type="text" placeholder="" aria-placeholder="">
+					<input id="amount" type="number" min="0" max="9999" onkeyup="onlyNumber(this)" placeholder="" aria-placeholder="">
 				</div>
 				<div class="aui-input-text">
 					<input id="note" style="color: grey" type="text" placeholder="Add notes(within 20 words)...">
@@ -108,7 +108,11 @@
 				});
 			}
 
-			$("#confirmAmount").html($("#amount").val());
+			if($("#amount").val() == "")
+				$("#confirmAmount").html("0.00");
+			else
+				$("#confirmAmount").html($("#amount").val());
+
 			$("#confirmReceiver").html($("#checkedname").html());
 
 		})
@@ -131,12 +135,21 @@
 		$("#confirm").click(function() {
 
 			if(validReceiver) {
-				var amount = $("#amount").val();
+				var amount = $("#confirmAmount").text();
 				var body = {
 					"receiver": "${param.username}",
 					"amount": amount
 				};
-				post("../../account/transferOut.do", body);
+
+				if(amount == "0" || amount == "0." || amount == "0.0" || amount == "0.00" || amount == ""){
+					$.message({
+						message:'Amount is illegal!',
+						type:'error'
+					});
+				}
+				else {
+					post("/account/transferOut.do", body);
+				}
 			}
 			else {
 				$.message({
@@ -148,6 +161,26 @@
 		});
 
 	})
+
+	function onlyNumber(obj){
+
+		//得到第一个字符是否为负号    
+		var t = obj.value.charAt(0);
+		//先把非数字的都替换掉，除了数字和.和-号    
+		obj.value = obj.value.replace(/[^\d\.\-]/g,'');
+		//前两位不能是0加数字      
+		obj.value = obj.value.replace(/^0\d[0-9]*/g,'');
+		//必须保证第一个为数字而不是.       
+		obj.value = obj.value.replace(/^\./g,'');
+		//保证只有出现一个.而没有多个.       
+		obj.value = obj.value.replace(/\.{2,}/g,'.');
+		//保证.只出现一次，而不能出现两次以上       
+		obj.value = obj.value.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
+		//如果第一位是负号，则允许添加    
+		obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+		if(t == '-'){ return; }
+
+	}
 
 
 

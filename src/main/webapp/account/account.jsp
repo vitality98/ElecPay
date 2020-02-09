@@ -5,7 +5,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>我的余额</title>
+        <title>Balance</title>
         <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
         <meta content="yes" name="apple-mobile-web-app-capable"/>
         <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
@@ -16,7 +16,7 @@
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed" style="background-color: #1b82d2">
-                <a href="/accounthome/accounthome.html" class="aui-navBar-item">
+                <a href="javascript:window.history.back(-1);" class="aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">
@@ -46,26 +46,26 @@
                             <h4>Collect</h4>
                             <p>show my QR code</p>
                         </div>
-                        <span class="aui-cell-fr">查看收益</span>
+                        <span class="aui-cell-fr"></span>
                     </a>
-                    <a href="javascript:;" class="aui-cells-cell">
+                    <a href="/account/findMyCars.do" class="aui-cells-cell">
                         <div class="aui-cell-hd">
-                            <h4>借钱</h4>
-                            <p>最高90万,低至2万,放款快</p>
+                            <h4>My Cars</h4>
+                            <p>manage my cars</p>
                         </div>
-                        <span class="aui-cell-fr">去借钱</span>
+                        <span class="aui-cell-fr"></span>
                     </a>
-                    <a href="javascript:;" class="aui-cells-cell">
+                    <a href="/alipay/pay.jsp" class="aui-cells-cell">
                         <div class="aui-cell-hd">
-                            <h4>支付账号安全保障</h4>
-                            <p>百万保障,更安全</p>
+                            <h4>Top Up</h4>
+                            <p>Only support by Alipay</p>
                         </div>
-                        <span class="aui-cell-fr" style="color:#ff2d55">立即开通</span>
+                        <span class="aui-cell-fr"></span>
                     </a>
                 </div>
             </section>
             <footer class="aui-footer">
-                <a href="javascript:;" class="aui-forward">提现</a>
+                <a href="/alipay/pay.jsp" class="aui-forward">Top Up</a>
                 <a href="javascript:;" class="aui-recharge">充值</a>
             </footer>
         </section>

@@ -51,6 +51,8 @@ public class AccountServiceImpl implements AccountService {
         Account sendAccount = findByUserName(sender);
         Account receiveAccount = findByUserName(receiver);
 
+        if(amount <= 0d || amount == null)
+            throw new Exception("Illegal operation!");
         Double sendBalance = sendAccount.getBalance();
         Double receiveBalance = receiveAccount.getBalance();
         sendAccount.setBalance(sendBalance - amount);
@@ -73,5 +75,13 @@ public class AccountServiceImpl implements AccountService {
             cars.add(car);
         }
         return cars;
+    }
+
+    @Override
+    public void topUp(Double amount, Authentication authentication) {
+        String username = authentication.getName();
+        Account account = accountDao.findByUserName(username);
+        account.setBalance(account.getBalance() + amount);
+        accountDao.topUp(account);
     }
 }

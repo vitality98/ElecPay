@@ -14,6 +14,6 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         System.out.println("!!!!!!!!!!!!!!!!" + e);
         //httpServletRequest.getRequestDispatcher("/index.jsp").forward(httpServletRequest,httpServletResponse);
-        httpServletResponse.sendRedirect( "/index.html");
+        httpServletResponse.sendRedirect( "/admin/pages/relogin.html");
     }
 }

@@ -42,4 +42,10 @@ public class ParkServiceImpl implements ParkService {
         Park park = parkDao.findById(id);
         return park;
     }
+
+    @Override
+    public Integer countCar(Integer id) {
+        Integer count = parkDao.countCar(id);
+        return count;
+    }
 }

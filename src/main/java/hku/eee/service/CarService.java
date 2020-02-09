@@ -10,11 +10,17 @@ public interface CarService {
 
     public List<Car> findAll();
 
-    public void addCar();
+    public void addCar(String licence);
 
-    public Car findById();
+    public Car findCarById(Integer id);
+
+    public Car findCarByLicence(String licence);
 
     public List<Account> findHosts();
 
-    public Park fingPark();
+    public Park findPark();
+
+    public void connectAccount(Integer account_id, Integer car_id);
+
+    public void removeAccount(Integer account_id, Integer car_id);
 }

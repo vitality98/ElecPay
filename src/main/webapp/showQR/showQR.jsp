@@ -23,7 +23,7 @@
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed b-line">
-                <a href="/user/returnHome.do" class="aui-navBar-item">
+                <a href="javascript:window.history.back(-1);" class="aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">
