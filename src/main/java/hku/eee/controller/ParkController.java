@@ -5,6 +5,7 @@ import hku.eee.domain.Car;
 import hku.eee.domain.Park;
 import hku.eee.service.ParkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,10 +76,22 @@ public class ParkController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Park park = parkService.findByUserName(username);
         List<Car> cars = parkService.findCars(park.getId());
+        Integer count = parkService.countCar(park.getId());
+        mv.addObject("count", count);
+        System.out.println(count);
         mv.addObject("cars", cars);
         mv.addObject("park", park);
         mv.setViewName("/park/parkhome");
         return mv;
+    }
+
+    @RequestMapping("/changePrice.do")
+    public @ResponseBody
+    Map<String, String> changPrice(Authentication authentication, Double price) {
+        parkService.changePrice(authentication, price);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("result", "true");
+        return map;
     }
 
 }

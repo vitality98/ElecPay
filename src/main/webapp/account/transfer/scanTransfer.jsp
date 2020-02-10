@@ -44,7 +44,7 @@
 				<h2>Amount</h2>
 				<div class="aui-input-head b-line">
 					<i>￥</i>
-					<input id="amount" type="number" min="0" max="9999" onkeyup="onlyNumber(this)" placeholder="" aria-placeholder="">
+					<input id="amount" type="number" min="0" max="9999999" onkeyup="onlyNumber(this)" placeholder="" aria-placeholder="">
 				</div>
 				<div class="aui-input-text">
 					<input id="note" style="color: grey" type="text" placeholder="Add notes(within 20 words)...">
@@ -144,6 +144,12 @@
 				if(amount == "0" || amount == "0." || amount == "0.0" || amount == "0.00" || amount == ""){
 					$.message({
 						message:'Amount is illegal!',
+						type:'error'
+					});
+				}
+				else if(parseFloat(amount) > 9999999) {
+					$.message({
+						message:'Amount is too large!',
 						type:'error'
 					});
 				}

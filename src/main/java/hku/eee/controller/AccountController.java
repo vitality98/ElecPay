@@ -3,6 +3,7 @@ package hku.eee.controller;
 import com.sun.tools.javac.jvm.Items;
 import hku.eee.domain.Account;
 import hku.eee.domain.Car;
+import hku.eee.domain.TopupRecord;
 import hku.eee.service.AccountService;
 import hku.eee.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,102 @@ public class AccountController {
         return mv;
     }
 
+    @RequestMapping("/topupNotify.do")
+    public void topupNotify(HttpServletRequest request, Authentication authentication) throws UnsupportedEncodingException, AlipayApiException {
+        Map<String,String> params = new HashMap<String,String>();
+        Map requestParams = request.getParameterMap();
+        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+            String name = (String) iter.next();
+            String[] values = (String[]) requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+            //乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
+            //valueStr = new String(valueStr.getBytes("ISO-8859-1"), "gbk");
+            params.put(name, valueStr);
+        }
+        //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
+        //商户订单号
+
+
+        //支付宝交易号
+        String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
+
+        String timestamp = new String(request.getParameter("gmt_create").getBytes("ISO-8859-1"),"UTF-8");
+
+        String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+        //支付宝交易号
+
+        String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
+
+        //交易状态
+        String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
+
+        //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
+        //计算得出通知验证结果
+        //boolean AlipaySignature.rsaCheckV1(Map<String, String> params, String publicKey, String charset, String sign_type)
+        boolean verify_result = AlipaySignature.rsaCheckV1(params, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.CHARSET, "RSA2");
+
+
+        String username = authentication.getName();
+        if(verify_result){//验证成功
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //请在这里加上商户的业务逻辑程序代码
+
+            //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
+
+            if(trade_status.equals("TRADE_FINISHED")){
+                //判断该笔订单是否在商户网站中已经做过处理
+                //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+                //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
+                //如果有做过处理，不执行商户的业务程序
+
+                //注意：
+                //如果签约的是可退款协议，退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
+                //如果没有签约可退款协议，那么付款完成后，支付宝系统发送该交易状态通知。
+                TopupRecord topupRecord = accountService.findTopupRecord(trade_no);
+                if(topupRecord == null) {
+                    accountService.topUp(Double.valueOf(total_amount), authentication);
+                    TopupRecord newRecord = new TopupRecord();
+                    newRecord.setTimestamp(timestamp);
+                    newRecord.setTotal_amount(Double.valueOf(total_amount));
+                    newRecord.setTrade_no(trade_no);
+                    newRecord.setUsername(username);
+                    accountService.addTopupRecord(newRecord);
+                }
+                System.out.println("alipay topup success!!!!!!");
+
+            } else if (trade_status.equals("TRADE_SUCCESS")){
+                //判断该笔订单是否在商户网站中已经做过处理
+                //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+                //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
+                //如果有做过处理，不执行商户的业务程序
+
+                TopupRecord topupRecord = accountService.findTopupRecord(trade_no);
+                if(topupRecord == null) {
+                    accountService.topUp(Double.valueOf(total_amount), authentication);
+                    TopupRecord newRecord = new TopupRecord();
+                    newRecord.setTimestamp(timestamp);
+                    newRecord.setTotal_amount(Double.valueOf(total_amount));
+                    newRecord.setTrade_no(trade_no);
+                    newRecord.setUsername(username);
+                    accountService.addTopupRecord(newRecord);
+                }
+                System.out.println("alipay topup success!!!!!!");
+
+                //注意：
+                //如果签约的是可退款协议，那么付款完成后，支付宝系统发送该交易状态通知。
+            }
+
+
+        }else{//验证失败
+            System.out.println("fail");
+        }
+
+    }
+
     @RequestMapping("/topupReturn.do")
     public ModelAndView topupReturn(HttpServletRequest request, Authentication authentication) throws UnsupportedEncodingException, AlipayApiException {
 
@@ -108,34 +205,48 @@ public class AccountController {
 
         String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 
-        String code = new String(request.getParameter("code").getBytes("ISO-8859-1"),"UTF-8");
+        String timestamp = new String(request.getParameter("timestamp").getBytes("ISO-8859-1"),"UTF-8");
 
-        String msg = new String(request.getParameter("msg").getBytes("ISO-8859-1"),"UTF-8");
 
-        System.out.println("Alipay Wrong!!!!!!!!!!!" + msg + code);
+        //String code = new String(request.getParameter("code").getBytes("ISO-8859-1"),"UTF-8");
+
+        //String msg = new String(request.getParameter("msg").getBytes("ISO-8859-1"),"UTF-8");
+
+        //System.out.println("Alipay Wrong!!!!!!!!!!!" + msg + code);
 
         //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
         //计算得出通知验证结果
         //boolean AlipaySignature.rsaCheckV1(Map<String, String> params, String publicKey, String charset, String sign_type)
         boolean verify_result = AlipaySignature.rsaCheckV1(params, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.CHARSET, "RSA2");
 
+        /*
         if(code != "10000")
             verify_result = false;
+        */
 
 
+        String username = authentication.getName();
         if(verify_result){
-            accountService.topUp(Double.valueOf(total_amount), authentication);
+            TopupRecord topupRecord = accountService.findTopupRecord(trade_no);
+            if(topupRecord == null) {
+                accountService.topUp(Double.valueOf(total_amount), authentication);
+                TopupRecord newRecord = new TopupRecord();
+                newRecord.setTimestamp(timestamp);
+                newRecord.setTotal_amount(Double.valueOf(total_amount));
+                newRecord.setTrade_no(trade_no);
+                newRecord.setUsername(username);
+                accountService.addTopupRecord(newRecord);
+            }
+            System.out.println("alipay topup success!!!!!!");
 
         }else{
-
+            System.out.println("alipay topup failure!!!!!!");
         }
 
-        ModelAndView mv = new ModelAndView();
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Account account = accountService.findByUserName(username);
+        ModelAndView mv = new ModelAndView();
+        //mv.addObject("msg", msg);
         mv.addObject("verify_result", verify_result);
-        mv.addObject("msg", msg);
-
         mv.addObject("account", account);
         mv.setViewName("/alipay/topupReturn");
         return mv;

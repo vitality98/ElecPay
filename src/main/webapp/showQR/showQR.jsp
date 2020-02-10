@@ -38,8 +38,8 @@
 
                     <div style="size: landscape" id="qrcode"></div>
                     <div class="aui-back-title">
-                        <h2>${fullnameORprice}</h2>
-                        <p>${emailORpark}</p>
+                        <h2 style="font-size: xx-large">${fullnameORprice}</h2>
+                        <p style="font-size: large">${emailORpark}</p>
                     </div>
                     <div class="aui-back-button">
                         <button><a style="color: white" href="/user/returnHome.do">Return to Home</a></button>
@@ -52,18 +52,38 @@
         <script type="text/javascript" src="/showQR/js/qrcode.js"></script>
         <script type="text/javascript" src="/showQR/js/utf.js"></script>
         <script type="text/javascript" src="/showQR/js/jquery.qrcode.js" ></script>
-        <script type="text/javascript">
-            function makeCode(url) {
-                $("#qrcode").qrcode({
-                    render: "canvas",
-                    text: url,
-                    width : "200",
-                    height : "200",
-                    background : "#ffffff",
-                    foreground : "#000000",
-                    src: '/showQR/img/logo.png'
-                });
-            }
+
+        <c:if test="${role == 'account'}">
+            <script type="text/javascript">
+                function makeCode(url) {
+                    $("#qrcode").qrcode({
+                        render: "canvas",
+                        text: url,
+                        width : "350",
+                        height : "350",
+                        background : "#ffffff",
+                        foreground : "#000000",
+                        src: '/showQR/img/logo.png'
+                    });
+                }
+            </script>
+        </c:if>
+        <c:if test="${role == 'parkbay'}">
+            <script type="text/javascript">
+                function makeCode(url) {
+                    $("#qrcode").qrcode({
+                        render: "canvas",
+                        text: url,
+                        width : "350",
+                        height : "350",
+                        background : "#ffffff",
+                        foreground : "#000000",
+                        src: '/showQR/img/logo2.png'
+                    });
+                }
+            </script>
+        </c:if>
+        <script>
             function createQrcode () {
                 var url = "${role}" + "${username}";
                 makeCode(url);

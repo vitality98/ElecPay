@@ -111,8 +111,8 @@ public class UserController {
         }
         else {
             Park park = parkService.findByUserName(username);
-            mv.addObject("fullnameORprice", "¥" + park.getPrice());
-            mv.addObject("emailORpark", "park: " + park.getName());
+            mv.addObject("fullnameORprice", "¥" + park.getPrice() + "/h");
+            mv.addObject("emailORpark", park.getName());
             mv.addObject("username", username);
             mv.addObject("role", "parkbay");
         }

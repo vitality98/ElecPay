@@ -46,7 +46,7 @@
                             <div class="aui-palace">
                                 <a href="javascript:;" class="aui-palace-grid">
                                     <div class="aui-palace-grid-text">
-                                        <h2 id="${park.id}count" style="color: #14de44" class="green">loading...</h2>
+                                        <h2 id="${park.id}count" style="color: #14cf43" class="green">loading...</h2>
                                         <p>Space available</p>
                                     </div>
                                 </a>

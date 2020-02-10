@@ -5,6 +5,7 @@ import hku.eee.domain.Car;
 import hku.eee.domain.Park;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -37,4 +38,7 @@ public interface ParkDao {
 
     @Select("select * from car where park=#{id}")
     public  List<Car> findCars(Integer id);
+
+    @Update("update park set price=#{price} where username=#{username}")
+    public void changePrice(Park park);
 }

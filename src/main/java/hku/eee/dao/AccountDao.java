@@ -2,6 +2,7 @@ package hku.eee.dao;
 
 import hku.eee.domain.Account;
 import hku.eee.domain.Car;
+import hku.eee.domain.TopupRecord;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -38,5 +39,11 @@ public interface AccountDao {
 
     @Update("update account set balance=#{balance} where username=#{username}")
     public void topUp(Account account);
+
+    @Insert("insert into topup_record(id, trade_no, total_amount, timestamp, username) values(#{id}, #{trade_no}, #{total_amount}, #{timestamp}, #{username})")
+    public void addTopupRecord(TopupRecord topup_record);
+
+    @Select("select * from topup_record where trade_no = #{trade_no}")
+    public TopupRecord findTopupRecord(String trade_no);
 
 }

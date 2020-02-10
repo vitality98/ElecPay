@@ -2,6 +2,8 @@ package hku.eee.service;
 
 import hku.eee.domain.Car;
 import hku.eee.domain.Park;
+import org.springframework.security.core.Authentication;
+
 import java.util.List;
 
 public interface ParkService {
@@ -17,4 +19,6 @@ public interface ParkService {
     public Integer countCar(Integer id);
 
     public List<Car> findCars(Integer id);
+
+    public void changePrice(Authentication authentication, Double price);
 }

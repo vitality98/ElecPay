@@ -16,13 +16,17 @@
 <body>
     <div class="wrap content">
         <div class="pay dwo-pay">
-            <a href="javascript:" class="pay-qrcode">
+            <a href="/user/showQR.do" class="pay-qrcode">
                 <i></i>
                 <p>Charge QR</p>
             </a>
-            <a href="change.html" class="pay-wallet">
+            <a href="/park/findParkBalance.do" class="pay-wallet">
                 <i></i>
-                <p>Balance<span>¥125.36</span></p>
+                <p>Balance<span>¥${park.balance}</span></p>
+            </a>
+            <a href="/logout" class="pay-logout">
+                <i></i>
+                <p>Log out</p>
             </a>
         </div>
         <div class="grids has-more dwo-mt10">
@@ -33,7 +37,7 @@
                 <c:forEach items="${cars}" var="car">
                     <a href="javascript:;" class="weui-grid">
                         <div class="weui-grid__icon">
-                            <img src="images/icon1.png" alt="">
+                            <img src="images/icon2.png" alt="">
                         </div>
                         <p class="weui-grid__label">${car.licence}</p>
                     </a>
@@ -41,7 +45,12 @@
 
             </div>
         </div>
-        <div class="grids-more"><span class="toggle">More</span></div>
+        <c:if test="${count >= park.capacity}">
+            <div class="grids-more"><span style="color: red">Capacity: ${count}/${park.capacity} (full)</span></div>
+        </c:if>
+        <c:if test="${count < park.capacity}">
+            <div class="grids-more"><span>capacity: ${count}/${park.capacity}</span></div>
+        </c:if>
 
     </div>
 

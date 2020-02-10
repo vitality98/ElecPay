@@ -1,10 +1,9 @@
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page import="com.alipay.api.internal.util.AlipaySignature"%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ page import="java.util.*"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="hku.eee.alipay.config.*"%>
@@ -65,7 +64,7 @@
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed" style="background-color: #1b82d2">
-                <a href="javascript:window.history.back(-1);" class="aui-navBar-item">
+                <a href="/user/returnHome.do" class="aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">

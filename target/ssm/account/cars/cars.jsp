@@ -98,7 +98,7 @@
                                         <span id="${car.id}parkname"> park name</span>
                                     <p>
                                     <p>
-                                        <em>Total Bill: ¥
+                                        <em style="color: #2e6da4">Total Bill: ¥
                                             <i><span id="${car.id}totalbill">0.00</span></i>
                                         </em> （¥
                                         <span id="${car.id}price">0.00</span>/h)
@@ -164,13 +164,13 @@
         $(function() {
 
             addcar.onclick = function(){
-                Dialog.init('<input type="text" placeholder="5-20 characters"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
+                Dialog.init('<input type="text" placeholder="4-12 characters"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
                     title : 'Enter the Car\'s Licence Number！',
                     button : {
                         Add : function(){
                             var number = this.querySelector('input').value;
 
-                            if(number.length >= 5){
+                            if(number.length >= 4 && number.length <=12){
                                 Dialog.init('Checking...', 300);
 
                                 $.ajax({
@@ -196,7 +196,9 @@
                                                     }
                                                     else {
                                                         Notiflix.Report.Success( 'Add Success!', 'The new car has been added to your account', 'Confirm' );
-                                                        window.history.go(0);
+                                                        NXReportButton.onclick = function() {
+                                                            window.history.go(0);
+                                                        }
                                                     }
 
                                                 }
@@ -261,14 +263,15 @@
                     }
                 });
             }
+
             addcar2.onclick = function(){
-                Dialog.init('<input type="text" placeholder="5-20 characters"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
+                Dialog.init('<input type="text" placeholder="4-12 characters"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
                     title : 'Enter the Car\'s Licence Number！',
                     button : {
                         Add : function(){
                             var number = this.querySelector('input').value;
 
-                            if(number.length >= 5){
+                            if(number.length >= 4 && number.length <=12){
                                 Dialog.init('Checking...', 300);
 
                                 $.ajax({
@@ -294,7 +297,10 @@
                                                     }
                                                     else {
                                                         Notiflix.Report.Success( 'Add Success!', 'The new car has been added to your account', 'Confirm' );
-                                                        window.history.go(0);
+
+                                                        NXReportButton.onclick = function() {
+                                                            window.history.go(0);
+                                                        }
                                                     }
 
                                                 }
@@ -311,7 +317,6 @@
                                                 type: "post",
                                                 dataType: "json",
                                                 success: function(data){
-
 
                                                     $.ajax({
                                                         url: "/car/connectAccount.do",

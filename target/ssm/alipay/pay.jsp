@@ -8,6 +8,7 @@
 <%@page import="com.alipay.api.request.AlipayTradeWapPayRequest"%>
 <%@page import="com.alipay.api.domain.AlipayTradeWapPayModel" %>
 <%@page import="com.alipay.api.domain.AlipayTradeCreateModel"%>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%
 
 %>
@@ -15,6 +16,7 @@
 if(request.getParameter("WIDout_trade_no")!=null){
 	// 商户订单号，商户网站订单系统中唯一订单号，必填
     String out_trade_no = new String(request.getParameter("WIDout_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+    //out_trade_no = out_trade_no + SecurityContextHolder.getContext().getAuthentication().getName();
 	// 订单名称，必填
     String subject = new String(request.getParameter("WIDsubject").getBytes("ISO-8859-1"),"UTF-8");
 	System.out.println(subject);
@@ -72,6 +74,7 @@ if(request.getParameter("WIDout_trade_no")!=null){
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="/admin/dist/notiflix-1.3.0.min.css">
 
     <title>Top Up</title>
 </head>
@@ -107,7 +110,7 @@ if(request.getParameter("WIDout_trade_no")!=null){
                         <h4>Amount</h4>
                         <div class="number_amount">
                             <label>￥</label>
-                            <input id="amount" type="number" min="0" max="9999" onkeyup="onlyNumber(this)" name="amount">
+                            <input id="amountput" type="number" min="0" max="9999" onkeyup="onlyNumber(this)" name="amount">
                         </div>
                     </div>
                 </div>
@@ -154,7 +157,18 @@ if(request.getParameter("WIDout_trade_no")!=null){
 </body>
 <script src="./js/jquery.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
+<script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
 <script>
+    $(function() {
+        Notiflix.Notify.Init();
+        Notiflix.Report.Init();
+        Notiflix.Confirm.Init();
+        Notiflix.Loading.Init({
+            clickToClose: false
+        });
+    })
+
+
     var $amountInput = $('[type="number"]');
     var amount = '';
     var $getId = $('[type="hidden"]');
@@ -229,24 +243,33 @@ if(request.getParameter("WIDout_trade_no")!=null){
         return temp;
     }
 
-    var vNow = new Date();
-    var sNow = "";
-    sNow += String(vNow.getFullYear());
-    sNow += String(vNow.getMonth() + 1);
-    sNow += String(vNow.getDate());
-    sNow += String(vNow.getHours());
-    sNow += String(vNow.getMinutes());
-    sNow += String(vNow.getSeconds());
-    sNow += String(vNow.getMilliseconds());
-    var body = {
-        "WIDout_trade_no": sNow,
-        "WIDsubject": sNow,
-        "WIDtotal_amount": $("#amount").val(),
-        "WIDbody": "nothing"
-    };
+
 
     $("#topup").click(function() {
-        post("", body);
+
+        var vNow = new Date();
+        var sNow = "";
+        sNow += String(vNow.getFullYear());
+        sNow += String(vNow.getMonth() + 1);
+        sNow += String(vNow.getDate());
+        sNow += String(vNow.getHours());
+        sNow += String(vNow.getMinutes());
+        sNow += String(vNow.getSeconds());
+        sNow += String(vNow.getMilliseconds());
+        var amountput = $("#amountput").val();
+        if(amountput == "0" || amountput == null || amountput == "") {
+            Notiflix.Report.Warning( 'Wrong amount!', 'The amount must be more than ¥0.', 'Confirm' );
+        }
+        else {
+            var body = {
+                "WIDout_trade_no": sNow,
+                "WIDsubject": sNow,
+                "WIDtotal_amount": amountput,
+                "WIDbody": "nothing"
+            };
+            post("", body);
+        }
+
     })
 
 

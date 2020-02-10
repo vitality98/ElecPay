@@ -6,6 +6,7 @@ import hku.eee.domain.Car;
 import hku.eee.domain.Park;
 import hku.eee.service.ParkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +55,13 @@ public class ParkServiceImpl implements ParkService {
     public List<Car> findCars(Integer id) {
         List<Car> cars = parkDao.findCars(id);
         return cars;
+    }
+
+    @Override
+    public void changePrice(Authentication authentication, Double price) {
+        String username = authentication.getName();
+        Park park = parkDao.findByUserName(username);
+        park.setPrice(price);
+        parkDao.changePrice(park);
     }
 }

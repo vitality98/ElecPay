@@ -4,6 +4,7 @@ import hku.eee.dao.AccountDao;
 import hku.eee.dao.CarDAO;
 import hku.eee.domain.Account;
 import hku.eee.domain.Car;
+import hku.eee.domain.TopupRecord;
 import hku.eee.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -83,5 +84,15 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountDao.findByUserName(username);
         account.setBalance(account.getBalance() + amount);
         accountDao.topUp(account);
+    }
+
+    public void addTopupRecord(TopupRecord topupRecord) {
+        accountDao.addTopupRecord(topupRecord);
+    }
+
+    @Override
+    public TopupRecord findTopupRecord(String trade_no) {
+        TopupRecord topupRecord = accountDao.findTopupRecord(trade_no);
+        return topupRecord;
     }
 }
