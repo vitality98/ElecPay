@@ -48,9 +48,21 @@ public class CarController {
         Account account = accountService.findByUserName(authentication.getName());
         HashMap<String, String> map = new HashMap<>();
         List<Car> cars = accountService.findMyCars(authentication);
+        List<Integer> allConnect = carService.findAll();
+
+       /*
         if(!cars.isEmpty()) {
             for(Car car : cars) {
                 if(car.getLicence().equals(carService.findCarById(id).getLicence())) {
+                    map.put("done", "true");
+                    return map;
+                }
+            }
+        }
+        */
+        if(!allConnect.isEmpty()) {
+            for(Integer car : allConnect) {
+                if(car.equals(id)) {
                     map.put("done", "true");
                     return map;
                 }

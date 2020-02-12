@@ -39,6 +39,9 @@ public interface ParkDao {
     @Select("select * from car where park=#{id}")
     public  List<Car> findCars(Integer id);
 
-    @Update("update park set price=#{price} where username=#{username}")
+    @Update("update park set price = #{price} where username = #{username}")
     public void changePrice(Park park);
+
+    @Update("update park set balance = #{balance} where username = #{username}")
+    public void updatePark(Park park);
 }

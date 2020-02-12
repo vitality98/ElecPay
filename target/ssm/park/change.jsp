@@ -69,7 +69,7 @@
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-                <a href="javascript:;" class="weui-btn weui-btn_primary wx_btn">Refund</a>
+                <a id="refund" href="javascript:;" class="weui-btn weui-btn_primary wx_btn">Refund</a>
                 <a id="setting" href="javascript:;" class="weui-btn weui-btn_default wx_btn">Setting Price</a>
             </p>
         </div>
@@ -114,6 +114,10 @@
     $(function() {
         FastClick.attach(document.body);
 
+        $("#refund").click(function() {
+            Notiflix.Report.Info( 'Sorry!', 'Because the alipay or bank regulation, this app demo can not apply for a refund-api. That will make it in the future.', 'Confirm' );
+
+        })
 
 
         setting.onclick = function(){

@@ -31,7 +31,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         String userRole = username.substring(0, 7);
         String userLoginName = username.substring(7);
-        System.out.println("!!!!!!!!!!!!!!!!!!" + userLoginName);
         if("account".equals(userRole)) {
 
             /*-- super administrator
@@ -48,7 +47,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
             ArrayList<SimpleGrantedAuthority> authorities = new ArrayList();
             authorities.add(new SimpleGrantedAuthority("ROLE_ACCOUNT"));
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!");
             return new User(userLoginName, account.getPassword(), userRole, authorities);
         }
         else if("parkbay".equals(userRole)) {
@@ -62,11 +60,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         else
             throw new BadCredentialsException("Username does not exist!");
-
-
-
-
-
 
     }
 }

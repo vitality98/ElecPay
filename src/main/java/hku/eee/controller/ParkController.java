@@ -65,7 +65,6 @@ public class ParkController {
 
     @RequestMapping("/findParkById.do")
     public @ResponseBody Park findParkById(Integer id) {
-        System.out.println("!!!!!!!findparkbyId");
         Park park = parkService.findById(id);
         return park;
     }

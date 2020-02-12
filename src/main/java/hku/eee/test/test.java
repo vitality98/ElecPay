@@ -14,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 public class test {
@@ -55,8 +56,12 @@ public class test {
         in.close();
     }
 
+    @Test
     public void test() {
+        System.out.println(new Date());
         System.out.println("hello world!");
         System.out.println("123");
+
+
     }
 }

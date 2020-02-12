@@ -17,8 +17,8 @@ public class CarServiceImpl implements CarService {
     private CarDAO carDAO;
 
     @Override
-    public List<Car> findAll() {
-        return null;
+    public List<Integer> findAll() {
+        return carDAO.findAll();
     }
 
     @Override
@@ -51,7 +51,6 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void connectAccount(Integer account_id, Integer car_id) {
-        System.out.println("!!!!!!!!!yyyyyyyyyyyy" + account_id + car_id);
         carDAO.connectAccount(account_id, car_id);
     }
 

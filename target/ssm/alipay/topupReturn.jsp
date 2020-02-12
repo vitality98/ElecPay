@@ -33,7 +33,7 @@
     <%
 
     %>
-
+<!--
     <c:if test="${verify_result}">
         <script>
             $(function() {
@@ -60,7 +60,7 @@
         </script>
     </c:if>
 
-
+-->
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed" style="background-color: #1b82d2">
@@ -114,8 +114,20 @@
             </section>
             <footer class="aui-footer">
                 <a href="/alipay/pay.jsp" class="aui-forward">Top Up</a>
-                <a href="javascript:;" class="aui-recharge">充值</a>
+                <a id="refund" href="javascript:;" class="aui-recharge">Refund</a>
             </footer>
         </section>
+    <script>
+        $(function() {
+            $("#refund").click(function() {
+                Notiflix.Report.Init();
+                Notiflix.Loading.Init({
+                    clickToClose:true
+                });
+                Notiflix.Report.Info( 'Sorry', 'Because the alipay or bank regulation, this app demo can not apply for a refund-api. That will make it in the future.', 'Confirm' );
+            })
+
+        })
+    </script>
     </body>
 </html>

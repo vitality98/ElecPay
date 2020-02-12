@@ -95,11 +95,11 @@
                                 <h3>Licence: ${car.licence}</h3>
                                 <c:if test="${car.park != 2}">
                                     <p>Parking in:
-                                        <span id="${car.id}parkname"> park name</span>
+                                        <span id="${car.id}parkname">loading...</span>
                                     <p>
                                     <p>
                                         <em style="color: #2e6da4">Total Bill: ¥
-                                            <i><span id="${car.id}totalbill">0.00</span></i>
+                                            <i><span id="${car.id}totalbill">...</span></i>
                                         </em> （¥
                                         <span id="${car.id}price">0.00</span>/h)
                                     </p>
@@ -118,13 +118,25 @@
                             $(function(){
                                 $.ajax({
                                     url: "/park/findParkById.do",
+                                    data: "id=${car.park}",
+                                    contentType: "application/x-www-form-urlencoded",
+                                    type: "post",
+                                    dataType: "json",
+                                    success: function(data){
+
+                                            $("#${car.id}parkname").html(data.name);
+                                            $("#${car.id}price").html(data.price);
+                                    }
+                                });
+
+                                $.ajax({
+                                    url: "/account/totalBill.do",
                                     data: "id=${car.id}",
                                     contentType: "application/x-www-form-urlencoded",
                                     type: "post",
                                     dataType: "json",
                                     success: function(data){
-                                        $("#${car.id}parkname").html(data.name);
-                                        $("#${car.id}price").html(data.price);
+                                        $("#${car.id}totalbill").html(data.bill);
                                     }
                                 });
 
@@ -191,7 +203,7 @@
                                                 dataType: "json",
                                                 success: function(data){
                                                     if(data.done == "true") {
-                                                        Notiflix.Report.Warning( 'Duplicate Car Licence!', 'Retype a new different Car Licence Number', 'Cancel' );
+                                                        Notiflix.Report.Failure( 'Invalid Licence!', 'It may has been registered by others. Retype a new different Car Licence Number.', 'Cancel' );
 
                                                     }
                                                     else {
@@ -225,7 +237,7 @@
                                                         dataType: "json",
                                                         success: function(data){
                                                             if(data.done == "true") {
-                                                                Notiflix.Report.Warning( 'Duplicate Car Licence!', 'Retype a new different Car Licence Number', 'Cancel' );
+                                                                Notiflix.Report.Failure( 'Invalid Licence!', 'It may has been registered by others. Retype a new different Car Licence Number.', 'Cancel');
 
                                                             }
                                                             else {
@@ -292,7 +304,7 @@
                                                 dataType: "json",
                                                 success: function(data){
                                                     if(data.done == "true") {
-                                                        Notiflix.Report.Warning( 'Duplicate Car Licence!', 'Retype a new different Car Licence Number', 'Cancel' );
+                                                        Notiflix.Report.Failure( 'Invalid Licence!', 'It may has been registered by others. Retype a new different Car Licence Number.', 'Cancel');
 
                                                     }
                                                     else {
@@ -326,7 +338,7 @@
                                                         dataType: "json",
                                                         success: function(data){
                                                             if(data.done == "true") {
-                                                                Notiflix.Report.Warning( 'Duplicate Car Licence!', 'Retype a new different Car Licence Number', 'Cancel' );
+                                                                Notiflix.Report.Failure('Invalid Licence!', 'It may has been registered by others. Retype a new different Car Licence Number.', 'Cancel' );
 
                                                             }
                                                             else {

@@ -54,7 +54,6 @@ public class UserController {
 
     @RequestMapping("/scanQR.do")
     public String scanQR(String QRresult, Model model){
-        System.out.println("!!!!!!!!scandodododo!");
         model.addAttribute("title", "Scan");
         if(QRresult.length() < 8){
             System.out.println("wromng!");
@@ -82,7 +81,8 @@ public class UserController {
                 model.addAttribute("message", "Park not exists!");
                 return "redirect:/message/error/error.jsp";
             }
-            return "redirect:/account/payment/payment.jsp";
+            model.addAttribute("park", park.getUsername());
+            return "redirect:/account/parking.do";
 
         }
         else{

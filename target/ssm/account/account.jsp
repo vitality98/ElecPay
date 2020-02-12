@@ -11,6 +11,10 @@
         <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
         <meta content="telephone=no" name="format-detection"/>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
+        <link rel="stylesheet" href="/admin/dist/notiflix-1.3.0.min.css">
+        <script src="/admin/dist/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
     </head>
     <body>
 
@@ -28,8 +32,8 @@
                     <div class="aui-line-circle" style="color: white">
                         <h2 style="color: whitesmoke">Balance</h2>
                         <p>
-                            <em style="color: white">￥</em>
-                            <span size="34px" style="color: white; font-size: 35px">${account.balance}</span>
+                            <span style="color: white">￥</span>
+                            <span size="60px" style="color: white; font-size: 35px">${account.balance}</span>
                         </p>
                     </div>
                 </div>
@@ -66,8 +70,21 @@
             </section>
             <footer class="aui-footer">
                 <a href="/alipay/pay.jsp" class="aui-forward">Top Up</a>
-                <a href="javascript:;" class="aui-recharge">充值</a>
+                <a id="refund" href="javascript:;" class="aui-recharge">Refund</a>
             </footer>
         </section>
+
+        <script>
+            $(function() {
+                $("#refund").click(function() {
+                    Notiflix.Report.Init();
+                    Notiflix.Loading.Init({
+                        clickToClose:true
+                    });
+                    Notiflix.Report.Info( 'Sorry!', 'Because the alipay or bank regulation, this app demo can not apply for a refund-api. That will make it in the future.', 'Confirm' );
+                })
+
+            })
+        </script>
     </body>
 </html>

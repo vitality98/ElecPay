@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface CarDAO {
 
-    @Select("select * from car")
-    public List<Car> findAll();
+    @Select("select car from account_car")
+    public List<Integer> findAll();
 
     @Insert("insert into car(licence) values(#{licence})")
     public void addCar(String licence);
@@ -27,6 +27,9 @@ public interface CarDAO {
 
     @Delete("delete from account_car where account=#{account_id} and car=#{car_id}")
     public void removeAccount(@Param("account_id") Integer account_id, @Param("car_id") Integer car_id);
+
+    @Update("update car set park = #{park} where id = #{id}")
+    public void updateCar(Car car);
 
 
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CarService {
 
-    public List<Car> findAll();
+    public List<Integer> findAll();
 
     public void addCar(String licence);
 
