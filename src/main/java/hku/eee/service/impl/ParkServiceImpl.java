@@ -103,4 +103,13 @@ public class ParkServiceImpl implements ParkService {
 
         return list;
     }
+
+    @Override
+    public boolean verifyPassword(String username, String password) {
+        Park park = parkDao.findByUserName(username);
+        if(park.getPassword().equals(password))
+            return true;
+        else
+            return false;
+    }
 }

@@ -247,19 +247,19 @@
 		margin-top: 1rem;
     	left: 8%;
     	top: 45%;
-    	z-index: 9999;
+
     }
     .t-input{
-    	width: 85%;
+    	width: 80%;
     	height: 2.8em;
 		align-self: center;
     	border:none;
 		font-size: medium;
     	border-bottom: 2px solid #e7e7e7;
     	position: relative;
-    	left: 0%;
+    	left: 15%;
     	outline: none;
-    	padding-left: 15%;
+    	padding-left: 0%;
     }
     .kyye{
     	font-size: 0.8em;

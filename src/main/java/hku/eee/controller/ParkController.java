@@ -115,4 +115,13 @@ public class ParkController {
         return mv;
     }
 
+    @RequestMapping("/verifyPassword.do")
+    public @ResponseBody
+    Map<String, String> verifyPassword(String password, Authentication authentication) {
+        boolean res = parkService.verifyPassword(authentication.getName(), password);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("valid", Boolean.toString(res));
+        return map;
+    }
+
 }

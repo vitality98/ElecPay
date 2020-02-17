@@ -48,4 +48,5 @@ public interface ParkDao {
 
     @Select("select * from refund_record where username = #{username} and role = 'ROLE_PARKHOST'")
     public List<RefundRecord> findRefundRecord(String username);
+
 }

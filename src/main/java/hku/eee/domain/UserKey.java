@@ -5,14 +5,14 @@ import java.io.Serializable;
 public class UserKey implements Serializable {
     private Integer id;
     private String username;
-    private String key;
+    private String keyy;
 
     @Override
     public String toString() {
         return "UserKey{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", key='" + key + '\'' +
+                ", keyy='" + keyy + '\'' +
                 '}';
     }
 
@@ -32,11 +32,11 @@ public class UserKey implements Serializable {
         this.username = username;
     }
 
-    public String getKey() {
-        return key;
+    public String getKeyy() {
+        return keyy;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setKeyy(String keyy) {
+        this.keyy = keyy;
     }
 }

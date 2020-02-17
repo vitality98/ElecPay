@@ -13,6 +13,9 @@
 	<link rel="stylesheet" href="/admin/dist/notiflix-1.3.0.min.css">
 	<script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
 
+	<link href="/payment/dist/dialog.css" rel="stylesheet">
+	<script src="/payment/dist/mDialogMin.js"></script>
+
 	<title>Refund</title>
 </head>
 <body>
@@ -25,7 +28,7 @@
 		 <div class="tixian-box">
 		 	<div class="tobank">
 				<div style="">
-					<label style="margin-left: 2rem;padding-top: 20rem;font-size: bold;" for="selectInput">Bank:</label>
+					<label style="margin-left: 2rem;padding-top: 20rem;" for="selectInput">Bank:</label>
 					<select style="margin-left: 3rem;margin-top: 1rem;width: 60%;height: 1.5rem" id="selectInput">
 						<option>Hong Kong Bank</option>
 						<option>The Swift Bank</option>
@@ -33,13 +36,13 @@
 					</select>
 				</div>
 				<div>
-					<label style="margin-left: 2rem;font-size: bold" for="focusedInput">Number:</label>
+					<label style="margin-left: 2rem;" for="focusedInput">Number:</label>
 					<input  style="margin-left: 1.6rem;margin-top: 1rem;width: 60%;height: 1.5rem" placeholder="(10 digit)" class="form-control pop_input" id="focusedInput" type="number" min="0" oninput="if(value.length>10)value=value.slice(0,10);" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'');">
 				</div>
 
 		 	</div>
 		 	<div class="t-moneys">
-		 		<span class="rmb">￥</span>
+		 		<label for="getmoneys" class="rmb">￥</label>
 		 		<span class="kyye">Current Balance：¥${balance}，<a href="javascript:;" id="getall">Refund All</a></span>
 		 		<input type="number" id="getmoneys" onkeyup="onlyNumber(this)" min="0" class="t-input">
 		 		<button id="getout">Refund</button>
@@ -103,6 +106,8 @@
 		}
 
 		$(function() {
+				Notiflix.Notify.Init();
+				Notiflix.Report.Init();
 				Notiflix.Confirm.Init();
 				Notiflix.Loading.Init({
 					clickToClose:false
@@ -142,11 +147,45 @@
 						});
 					}
 					else {
-                        Notiflix.Confirm.Show( 'Confirm', 'Do you want to continue?', 'Yes', 'No', function(){
-							Notiflix.Loading.Standard();
-							post("/user/refund.do", body);
-                        } );
+						Dialog.init('<input type="password"  oninput="if(value.length>20)value=value.slice(0,20);" placeholder="Enter Login Password"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
+							title : 'Login Password:',
+							button : {
+								Confirm : function(){
+									var key = this.querySelector('input').value;
+									if(key.length >= 1 && key.length <=20){
+										Notiflix.Loading.Standard();
+										Dialog.init('Checking...', 300);
+										$.ajax({
+											url: "/park/verifyPassword.do",
+											data: "password=" + key,
+											contentType: "application/x-www-form-urlencoded",
+											type: "post",
+											dataType: "json",
+											success: function(data){
+												if(data.valid == "true") {
+													post("/user/refund.do", body);
+												}
+												else {
+													Notiflix.Report.Failure( 'Wrong Password', 'The login password is wrong, please try again.', 'Cancel' );
+													NXReportButton.onclick = function() {
+														Notiflix.Loading.Standard();
+														window.history.go(0);
+													}
+												}
 
+											}
+										})
+										Dialog.close(this);
+									}else{
+										Dialog.init('Login Password can not be null.',1100);
+									};
+								},
+								Cancel : function(){
+									Dialog.init('Cancel...',300);
+									Dialog.close(this);
+								}
+							}
+						});
 					}
 				}
 

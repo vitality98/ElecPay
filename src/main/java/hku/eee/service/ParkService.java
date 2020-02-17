@@ -25,4 +25,6 @@ public interface ParkService {
     public void changePrice(Authentication authentication, Double price);
 
     public List<Map<String, String>> findRecord(Integer park_id);
+
+    public boolean verifyPassword(String username, String password);
 }

@@ -12,6 +12,9 @@
 	<link rel="stylesheet" href="/admin/dist/notiflix-1.3.0.min.css">
 	<script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
 
+	<link href="/payment/dist/dialog.css" rel="stylesheet">
+	<script src="/payment/dist/mDialogMin.js"></script>
+
 	<title>Refund</title>
 </head>
 <body>
@@ -35,7 +38,7 @@
 
 		 	</div>
 		 	<div class="t-moneys">
-		 		<span class="rmb">￥</span>
+		 		<label for="getmoneys" class="rmb">￥</label>
 		 		<span class="kyye">Current Balance：¥${balance}，<a href="javascript:;" id="getall">Refund All</a></span>
 		 		<input type="number" id="getmoneys" onkeyup="onlyNumber(this)" min="0" class="t-input">
 		 		<button id="getout">Refund</button>
@@ -101,6 +104,8 @@
 		}
 
 		$(function() {
+			Notiflix.Notify.Init();
+			Notiflix.Report.Init();
 			Notiflix.Confirm.Init();
 			Notiflix.Loading.Init({
 				clickToClose:false
@@ -122,10 +127,7 @@
 				}
 				else {
 					var amount = $("#getmoneys").val();
-					var body = {
-						"card": card,
-						"amount": amount
-					};
+
 					if(amount == "0" || amount == "0." || amount == "0.0" || amount == "0.00" || amount == ""){
 						$.message({
 							message:'Amount is illegal!',
@@ -139,12 +141,49 @@
 						});
 					}
 					else {
-						Notiflix.Confirm.Show( 'Confirm', 'Do you want to continue?', 'Yes', 'No', function(){
-							Notiflix.Loading.Standard();
-							post("/user/refund.do", body);
-						} );
+						Dialog.init('<input type="number" maxlength="6" minlength="6" min="0" oninput="if(value.length>6)value=value.slice(0,6);" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\');" pattern="[0-9]{6}" placeholder="Enter 6-digit password"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;-webkit-text-security: disc;"/>',{
+							title : 'Payment Password:',
+							button : {
+								Confirm : function(){
+									var body = {
+										"card": card,
+										"amount": amount
+									};
+									var key = this.querySelector('input').value;
+									if(key.length == 6){
+										Notiflix.Loading.Standard();
+										Dialog.init('Checking...', 300);
+										$.ajax({
+											url: "/account/verifyKey.do",
+											data: "key=" + key,
+											contentType: "application/x-www-form-urlencoded",
+											type: "post",
+											dataType: "json",
+											success: function(data){
+												if(data.valid == "true") {
+													post("/user/refund.do", body);
+												}
+												else {
+													Notiflix.Report.Failure( 'Wrong Password', 'The payment password is wrong, please try again.', 'Cancel' );
+													NXReportButton.onclick = function() {
+														Notiflix.Loading.Standard();
+														window.history.go(0);
+													}
+												}
 
-
+											}
+										})
+										Dialog.close(this);
+									}else{
+										Dialog.init('Payment password must be 6-digit.',1100);
+									};
+								},
+								Cancel : function(){
+									Dialog.init('Cancel...',300);
+									Dialog.close(this);
+								}
+							}
+						});
 					}
 				}
 

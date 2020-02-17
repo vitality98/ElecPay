@@ -103,6 +103,9 @@
 
 <script>
 	$(function(){
+		Notiflix.Notify.Init();
+		Notiflix.Report.Init();
+		Notiflix.Confirm.Init();
 		Notiflix.Loading.Init({
 			clickToClose:false
 		});
@@ -147,7 +150,7 @@
 			return temp;
 		}
 		$("#confirm").click(function() {
-
+			document.getElementById("cancel").click();
 
 			if(validReceiver) {
 				var amount = $("#confirmAmount").text();

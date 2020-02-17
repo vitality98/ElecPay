@@ -612,5 +612,23 @@ public class AccountController {
         return map;
     }
 
+    @RequestMapping("/verifyPassword.do")
+    public @ResponseBody
+    Map<String, String> verifyPassword(String password, Authentication authentication) {
+        boolean res = accountService.verifyPassword(password, authentication.getName());
+        HashMap<String, String> map = new HashMap<>();
+        map.put("valid", Boolean.toString(res));
+        return map;
+    }
+
+    @RequestMapping("/newKey.do")
+    public @ResponseBody
+    Map<String, String> newKey(String key, Authentication authentication) {
+        accountService.newKey(key, authentication.getName());
+        HashMap<String, String> map = new HashMap<>();
+        map.put("valid", "true");
+        return map;
+    }
+
 
 }

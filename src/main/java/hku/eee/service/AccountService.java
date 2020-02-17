@@ -58,4 +58,8 @@ public interface AccountService {
 
     public void addKey(String username, String key);
 
+    public boolean verifyPassword(String password, String username);
+
+    public void newKey(String key, String username);
+
 }

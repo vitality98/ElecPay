@@ -99,6 +99,123 @@
                     clickToClose:false
                 });
 
+                $("#setting").click(function() {
+                    Dialog.init('<input type="password" placeholder="Login Password" oninput="if(value.length>20)value=value.slice(0,20);" style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
+                        title : 'Enter the Login Password',
+                        button : {
+                            Confirm : function(){
+                                var number = this.querySelector('input').value;
+                                if(number.length >= 6 && number.length <=20){
+                                    Notiflix.Loading.Standard();
+                                    Dialog.init('Checking...', 300);
+                                    $.ajax({
+                                        url: "/account/verifyPassword.do",
+                                        data: "password=" + number,
+                                        contentType: "application/x-www-form-urlencoded",
+                                        type: "post",
+                                        dataType: "json",
+                                        success: function(data){
+
+                                            if(data.valid == "true") {
+                                                $("#NotiflixLoadingWrap").hide();
+                                                Dialog.init('<input type="number" maxlength="6" minlength="6" min="0" oninput="if(value.length>6)value=value.slice(0,6);" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\');" pattern="[0-9]{6}" placeholder="6-digit Payment Password"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;-webkit-text-security: disc;"/>',{
+                                                    title : 'Set new payment password:',
+                                                    button : {
+                                                        Confirm : function(){
+                                                            var key = this.querySelector('input').value;
+                                                            if(key.length == 6){
+                                                                rekey = key;
+                                                                Dialog.init('Checking...', 200);
+                                                                Dialog.close(this);
+
+                                                                Dialog.init('<input type="number" maxlength="6" minlength="6" min="0" oninput="if(value.length>6)value=value.slice(0,6);" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\');" pattern="[0-9]{6}" placeholder="Retype new password"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;-webkit-text-security: disc;"/>',{
+                                                                    title : 'Retype payment password:',
+                                                                    button : {
+                                                                        Confirm : function(){
+                                                                            $("#NotiflixLoadingWrap").show();
+                                                                            var newkey = this.querySelector('input').value;
+                                                                            if(newkey.length == 6 && newkey == rekey){
+                                                                                Dialog.init('waiting...', 300);
+                                                                                $.ajax({
+                                                                                    url: "/account/newKey.do",
+                                                                                    data: "key=" + newkey,
+                                                                                    contentType: "application/x-www-form-urlencoded",
+                                                                                    type: "post",
+                                                                                    dataType: "json",
+                                                                                    success: function(data){
+                                                                                        if(data.valid == "true") {
+                                                                                            Notiflix.Report.Success( 'Setting Success', 'The new 6-digit payment password has been effective.', 'Confirm' );
+                                                                                            NXReportButton.onclick = function() {
+                                                                                                Notiflix.Loading.Standard();
+                                                                                                window.history.go(0);
+                                                                                            }
+                                                                                        }
+                                                                                        else {
+                                                                                            Notiflix.Report.Failure( 'Wrong Password', 'The payment password is wrong, please try again.', 'Cancel' );
+                                                                                            NXReportButton.onclick = function() {
+                                                                                                Notiflix.Loading.Standard();
+                                                                                                window.history.go(0);
+                                                                                            }
+                                                                                        }
+
+                                                                                    }
+                                                                                })
+                                                                                Dialog.close(this);
+                                                                            }else{
+                                                                                Dialog.init('Retyped password not match.',1100);
+                                                                            };
+                                                                        },
+                                                                        Cancel : function(){
+                                                                            Dialog.init('Cancel...',300);
+                                                                            Dialog.close(this);
+                                                                            $("#NotiflixLoadingWrap").show();
+                                                                            window.history.go(0);
+                                                                        }
+                                                                    }
+                                                                });
+
+
+                                                            }else{
+                                                                Dialog.init('Payment password must be 6-digit.',1100);
+                                                            };
+                                                        },
+                                                        Cancel : function(){
+                                                            Dialog.init('Cancel...',300);
+                                                            Dialog.close(this);
+                                                            $("#NotiflixLoadingWrap").show();
+                                                            window.history.go(0);
+
+                                                        }
+                                                    }
+                                                });
+
+
+
+                                            }
+                                            else {
+                                                Notiflix.Report.Failure( 'Wrong Password', 'The login password is wrong, please try again.', 'Cancel' );
+                                                NXReportButton.onclick = function() {
+                                                    Notiflix.Loading.Standard();
+                                                    window.history.go(0);
+                                                }
+                                            }
+
+                                        }
+                                    });
+
+                                    Dialog.close(this);
+                                }else{
+                                    Dialog.init('must be more than 6 characters！',1100);
+                                };
+                            },
+                            Cancel : function(){
+                                Dialog.close(this);
+                            }
+                        }
+                    });
+                })
+
+
                 $(".loading").each(function () {
                     $(this).click(function() {
                         Notiflix.Loading.Standard();

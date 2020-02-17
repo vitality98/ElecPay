@@ -80,9 +80,10 @@ public interface AccountDao {
     @Select("select * from user_key where username = #{username}")
     public UserKey findKey(String username);
 
-    @Update("update user_key set key = #{key} where username = #{username}")
-    public void updateKey(@Param("username") String username, @Param("key") String key);
+    @Update("update user_key set keyy = #{keyy} where username = #{username}")
+    public void updateKey(UserKey userKey);
 
-    @Insert("insert into user_key(username, key) values(#{username}, #{key})")
-    public void addKey(@Param("username") String username, @Param("key") String key);
+    @Insert("insert into user_key(username, keyy) values(#{username}, #{keyy})")
+    public void addKey(UserKey userKey);
+
 }

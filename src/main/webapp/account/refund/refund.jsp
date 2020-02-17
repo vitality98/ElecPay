@@ -12,6 +12,9 @@
 	<link rel="stylesheet" href="/admin/dist/notiflix-1.3.0.min.css">
 	<script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
 
+	<link href="/payment/dist/dialog.css" rel="stylesheet">
+	<script src="/payment/dist/mDialogMin.js"></script>
+
 	<title>Refund</title>
 </head>
 <body>
@@ -35,7 +38,7 @@
 
 		 	</div>
 		 	<div class="t-moneys">
-		 		<span class="rmb">￥</span>
+		 		<label for="getmoneys" class="rmb">￥</label>
 		 		<span class="kyye">Current Balance：¥${balance}，<a href="javascript:;" id="getall">Refund All</a></span>
 		 		<input type="number" id="getmoneys" onkeyup="onlyNumber(this)" min="0" class="t-input">
 		 		<button id="getout">Refund</button>
@@ -101,6 +104,8 @@
 		}
 
 		$(function() {
+			Notiflix.Notify.Init();
+			Notiflix.Report.Init();
 			Notiflix.Confirm.Init();
 			Notiflix.Loading.Init({
 				clickToClose:false
@@ -122,10 +127,7 @@
 				}
 				else {
 					var amount = $("#getmoneys").val();
-					var body = {
-						"card": card,
-						"amount": amount
-					};
+
 					if(amount == "0" || amount == "0." || amount == "0.0" || amount == "0.00" || amount == ""){
 						$.message({
 							message:'Amount is illegal!',
@@ -143,6 +145,10 @@
 							title : 'Payment Password:',
 							button : {
 								Confirm : function(){
+									var body = {
+										"card": card,
+										"amount": amount
+									};
 									var key = this.querySelector('input').value;
 									if(key.length == 6){
 										Notiflix.Loading.Standard();

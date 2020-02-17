@@ -63,6 +63,8 @@ public class AccountServiceImpl implements AccountService {
 
         if(amount <= 0d || amount == null)
             throw new Exception("Illegal operation!");
+        if(sendAccount.getId().equals(receiveAccount.getId()))
+            throw new Exception("Can not tranfer to yourself");
         Double sendBalance = sendAccount.getBalance();
         Double receiveBalance = receiveAccount.getBalance();
         BigDecimal de_send = new BigDecimal(Double.toString(sendBalance));
@@ -313,13 +315,13 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean verifyKey(String username, String key) {
         UserKey userKey = accountDao.findKey(username);
-        if(userKey == null || userKey.getKey().equals("")) {
+        if(userKey == null || userKey.getKeyy().equals("")) {
             if(key.equals("111111"))
                 return true;
             else
                 return false;
         }
-        if(key.equals(userKey.getKey()))
+        if(key.equals(userKey.getKeyy()))
             return true;
         else
             return false;
@@ -327,12 +329,43 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void updateKey(String username, String key) {
+        UserKey userKey = new UserKey();
+        userKey.setKeyy(key);
+        userKey.setUsername(username);
+        accountDao.updateKey(userKey);
+    }
 
-        accountDao.updateKey(username, key);
+    @Override
+    public void newKey(String key, String username) {
+        System.out.println("!!!!!!!!!"+key);
+        UserKey userKey = accountDao.findKey(username);
+        UserKey newKey = new UserKey();
+        newKey.setUsername(username);
+        newKey.setKeyy(key);
+        if(userKey == null || userKey.getKeyy().equals("")) {
+            accountDao.addKey(newKey);
+        }
+        else {
+            accountDao.updateKey(newKey);
+        }
+
     }
 
     @Override
     public void addKey(String username, String key) {
-        accountDao.addKey(username, key);
+        UserKey userKey = new UserKey();
+        userKey.setKeyy(key);
+        userKey.setUsername(username);
+        accountDao.addKey(userKey);
+    }
+
+    @Override
+    public boolean verifyPassword(String password, String username) {
+        Account account = accountDao.findByUserName(username);
+        if(password.equals(account.getPassword()))
+            return true;
+        else
+            return false;
+
     }
 }
