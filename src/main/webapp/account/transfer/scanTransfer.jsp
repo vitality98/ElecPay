@@ -10,19 +10,24 @@
 	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
 	<meta content="telephone=no" name="format-detection" />
 	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="/admin/dist/notiflix-1.3.0.min.css">
+	<script src="/admin/dist/jquery-1.11.0.min.js" type="text/javascript"></script>
+	<script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
+	<link href="/payment/dist/dialog.css" rel="stylesheet">
+	<script src="/payment/dist/mDialogMin.js"></script>
 
 </head>
 <body>
 
 <section class="aui-flexView">
 	<header class="aui-navBar aui-navBar-fixed b-line">
-		<a href="/user/returnHome.do" class="aui-navBar-item">
+		<a href="/user/returnHome.do" class="loading aui-navBar-item">
 			<i class="icon icon-return"></i>Return
 		</a>
 		<div class="aui-center">
 			<span class="aui-center-title">Transfer</span>
 		</div>
-		<a href="javascript:;" class="aui-navBar-item">
+		<a href="/account/findRecord.do" class="loading aui-navBar-item">
 			<i class="icon icon-sys"></i>History
 		</a>
 
@@ -44,7 +49,7 @@
 				<h2>Amount</h2>
 				<div class="aui-input-head b-line">
 					<i>￥</i>
-					<input id="amount" type="number" min="0" max="9999999" onkeyup="onlyNumber(this)" placeholder="" aria-placeholder="">
+					<input id="amount" type="number" min="0" max="9999999" onkeyup="onlyNumber(this)" oninput="if(value.length>8)value=value.slice(0,8);" placeholder="" aria-placeholder="">
 				</div>
 				<div class="aui-input-text">
 					<input id="note" style="color: grey" type="text" placeholder="Add notes(within 20 words)...">
@@ -98,6 +103,15 @@
 
 <script>
 	$(function(){
+		Notiflix.Loading.Init({
+			clickToClose:false
+		});
+
+		$(".loading").each(function () {
+			$(this).click(function() {
+				Notiflix.Loading.Standard();
+			})
+		})
 
 		var validReceiver = true;
 		$("#submitButton").click(function() {
@@ -134,6 +148,7 @@
 		}
 		$("#confirm").click(function() {
 
+
 			if(validReceiver) {
 				var amount = $("#confirmAmount").text();
 				var body = {
@@ -154,7 +169,45 @@
 					});
 				}
 				else {
-					post("/account/transferOut.do", body);
+					Dialog.init('<input type="number" maxlength="6" minlength="6" min="0" oninput="if(value.length>6)value=value.slice(0,6);" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\');" pattern="[0-9]{6}\d*" placeholder="Enter 6-digit password"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;-webkit-text-security: disc;"/>',{
+						title : 'Payment Password:',
+						button : {
+							Confirm : function(){
+								var key = this.querySelector('input').value;
+								if(key.length == 6){
+									Notiflix.Loading.Standard();
+									Dialog.init('Checking...', 300);
+									$.ajax({
+										url: "/account/verifyKey.do",
+										data: "key=" + key,
+										contentType: "application/x-www-form-urlencoded",
+										type: "post",
+										dataType: "json",
+										success: function(data){
+											if(data.valid == "true") {
+												post("/account/transferOut.do", body);
+											}
+											else {
+												Notiflix.Report.Failure( 'Wrong Password', 'The payment password is wrong, please try again.', 'Cancel' );
+												NXReportButton.onclick = function() {
+													Notiflix.Loading.Standard();
+													window.history.go(0);
+												}
+											}
+
+										}
+									})
+									Dialog.close(this);
+								}else{
+									Dialog.init('Payment password must be 6-digit.',1100);
+								};
+							},
+							Cancel : function(){
+								Dialog.init('Cancel...',300);
+								Dialog.close(this);
+							}
+						}
+					});
 				}
 			}
 			else {

@@ -83,7 +83,7 @@ if(request.getParameter("WIDout_trade_no")!=null){
 
 <section class="aui-flexView">
     <header class="aui-navBar aui-navBar-fixed b-line">
-        <a href="javascript:window.history.back(-1);" class="aui-navBar-item">
+        <a href="javascript:window.history.back(-1);" class="loading aui-navBar-item">
             <i class="icon icon-return"></i>
         </a>
         <div class="aui-center">
@@ -168,6 +168,11 @@ if(request.getParameter("WIDout_trade_no")!=null){
         });
     })
 
+    $(".loading").each(function () {
+        $(this).click(function() {
+            Notiflix.Loading.Standard();
+        })
+    })
 
     var $amountInput = $('[type="number"]');
     var amount = '';
@@ -257,7 +262,7 @@ if(request.getParameter("WIDout_trade_no")!=null){
         sNow += String(vNow.getSeconds());
         sNow += String(vNow.getMilliseconds());
         var amountput = $("#amountput").val();
-        if(amountput == "0" || amountput == null || amountput == "") {
+        if(amountput == "0" || amountput == null || amountput == "" || amountput == "0." || amountput == "0.0" || amountput == "0.00") {
             Notiflix.Report.Warning( 'Wrong amount!', 'The amount must be more than ¥0.', 'Confirm' );
         }
         else {
@@ -267,7 +272,12 @@ if(request.getParameter("WIDout_trade_no")!=null){
                 "WIDtotal_amount": amountput,
                 "WIDbody": "nothing"
             };
-            post("", body);
+            Notiflix.Confirm.Show( 'Confirm', 'Do you want to continue?', 'Yes', 'No', function(){
+                Notiflix.Loading.Standard();
+                post("", body);
+            } );
+
+
         }
 
     })

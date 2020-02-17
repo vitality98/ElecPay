@@ -1,6 +1,7 @@
 package hku.eee.controller;
 
 import hku.eee.domain.Account;
+import hku.eee.domain.BillRecord;
 import hku.eee.domain.Car;
 import hku.eee.domain.Park;
 import hku.eee.service.ParkService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,6 +93,26 @@ public class ParkController {
         HashMap<String, String> map = new HashMap<>();
         map.put("result", "true");
         return map;
+    }
+
+    @RequestMapping("/findRecord.do")
+    public ModelAndView findRecord(Authentication authentication) {
+        Park park = parkService.findByUserName(authentication.getName());
+        List<Map<String, String>> records = parkService.findRecord(park.getId());
+        ModelAndView mv = new ModelAndView();
+
+        mv.addObject("records", records);
+        mv.setViewName("/history/bill_record");
+        return mv;
+    }
+
+    @RequestMapping("/card.do")
+    public ModelAndView card(Authentication authentication) {
+        Park park = parkService.findByUserName(authentication.getName());
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("balance", park.getBalance());
+        mv.setViewName("/park/refund/refund");
+        return mv;
     }
 
 }

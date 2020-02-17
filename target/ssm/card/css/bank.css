@@ -1,0 +1,83 @@
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img{
+    margin:0;
+    padding:0;
+}
+body {
+    font-family: 'microsoft yahei',Verdana,Arial,Helvetica,sans-serif;
+    font-size:0.24rem;
+    background-color: #f8f9fb;
+    height: 100%;
+    max-width:7.5rem;
+    margin:0 auto;
+}
+li, ul {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+li, ul { list-style-type: none;}
+img {
+    border: 0;
+    border: none;
+    width: 100%;
+}
+a, a:hover, a:visited { text-decoration: none;}
+a:hover, a:focus {
+    color: #333;
+}
+a {
+    color: #000;
+}
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+
+ .col-sm-3, .col-sm-9{
+     float: left;
+  }
+
+  .col-sm-9 {
+    width: 97%;
+  }
+  .col-sm-3 {
+    width: 95%;
+  }
+  
+
+header{height:0.88rem; background:#2581db; line-height:0.88rem; padding-right:0.7rem; padding-left: 0.20rem;}
+header img{width:0.5rem; height:0.5rem;}
+header a{ position:absolute; top:0%;}
+header .title{width:100%;text-align:center; font-size:0.3rem; color:#fff; float:left;}
+/*bank页面样式开始*/
+.bank_content{width:92%; padding:0.3rem;}
+.card{height:3.2rem; background:url(../images/bg_card.png) no-repeat; background-size:auto 100%;}
+.card .card_number{width:6rem; padding-top:0.48rem; height:1.26rem; margin-left:auto; margin-right:auto; color:#fff; line-height:0.6rem;}
+.card_number img{float:left; width:1.26rem; height:1.26rem;}
+.card_number .txt0{float:right; font-size:0.32rem;}
+.card_number span{font-size:0.22rem;}
+.card .youxiaoqi{width:6rem; height:0.24rem; color:#fff; margin-top:0.6rem; float:left; padding-left:0.5rem; font-size:0.22rem;}
+.bangding{width:6.3rem; height:0.98rem; margin-top:1rem; margin-left:auto; margin-right:auto; border:#b1b1b1 dashed 0.01rem; font-size:0.26rem; text-align:center; line-height:0.98rem;}
+.bangding a{color:#b1b1b1;}
+
+/*弹出*/
+.click_pop{width:6.3rem; height:0.98rem; margin-top:1rem; margin-left:0.3rem; border:#b1b1b1 dashed 0.01rem; font-size:0.26rem; text-align:center; line-height:0.98rem;}
+.click_pop a{ color:#adadad;}
+.pop {display: none;  width:92%; height:6rem;  position:fixed;  bottom: 0; z-index: 130;  background-color:#fff;}
+.pop-top{ height:0.8rem; width:92%; line-height:0.8rem; font-size:0.24rem; text-align:center; padding-left:0.2rem; padding-right:0.2rem;  border-bottom:0.01rem #cecece solid;}
+.pop-top span{ float:left; cursor: pointer; font-weight:bold; display:black}
+.pop-foot{width:100%;  border-top:0rem #E5E5E5 solid;}
+.pop-content{height:3.8rem;}
+.pop-content label{font-size:0.3rem; line-height:0.8rem;}
+@media (min-width: 768px) {
+	.pop-content label{font-size:0.24rem; line-height:0.8rem; font-style:normal;}
+}
+.pop_select{width:97%; height:0.7rem; border-top:0rem;margin-top: 0rem; border-left:none; border-right:none; border-bottom:#cecece dashed 0.01rem; font-size:0.24rem;}
+.pop_input{width:97%; align-self: center;height:0.7rem; background:#f1f2f7;margin-top: 0.1rem; border-top:none; border-left:5rem; border-right:none; border-bottom:#cecece dashed 0.01rem; font-size:0.24rem;}
+.pop-ok{width:95%; position: center;cursor:pointer;margin-left: 0.2rem; border:none; border-radius:0.00rem;  height:1rem; color:#fff; background:#2681da;line-height:1rem; text-align:center; font-size:0.26rem;}

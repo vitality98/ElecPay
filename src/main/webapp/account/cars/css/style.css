@@ -105,6 +105,8 @@ a {
 
 .b-line {
     position: relative;
+    margin:0.5rem 0.5rem 0 0.5rem;
+    border-radius:3px;
 }
 
 .b-line:after {
@@ -198,7 +200,7 @@ a {
     display: -ms-flexbox;
     display: flex;
     z-index: 1002;
-    box-shadow: 0 1px 2px #e8e8e8;
+    box-shadow: 0 1px 7px #e8e8e8;
     background: #fff;
 }
 

@@ -23,11 +23,15 @@
 
 
     <http auto-config="false" use-expressions="false">
-        <intercept-url pattern="/**" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
+        <intercept-url pattern="/account/totalBill.do" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
+        <intercept-url pattern="/park/findAll.do" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
+        <intercept-url pattern="/park/countCar.do" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
+        <intercept-url pattern="/park/findParkById.do" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
         <intercept-url pattern="/accounthome/**" access="ROLE_ACCOUNT" />
         <intercept-url pattern="/account/**" access="ROLE_ACCOUNT" />
         <intercept-url pattern="/parkhome/**" access="ROLE_PARKHOST" />
         <intercept-url pattern="/park/**" access="ROLE_PARKHOST" />
+        <intercept-url pattern="/**" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
 
 
 

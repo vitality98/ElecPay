@@ -26,7 +26,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="/welcome/welcome.html"><b>Swift</b> Parking</a>
+    <a class="loading" href="/welcome/welcome.html"><b>Swift</b> Parking</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -92,10 +92,10 @@
 
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a class="loading" href="forgot-password.html">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="register.html" class="loading text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.login-card-body -->
@@ -118,8 +118,14 @@
     $(function() {
       Notiflix.Report.Init();
       Notiflix.Loading.Init({
-        clickToClose:true
+        clickToClose:false
       });
+
+      $('.loading').each(function () {
+        $(this).click(function(){
+          Notiflix.Loading.Standard();
+        })
+      })
 
       Notiflix.Report.Success( 'Register Success', 'Now login to start your Swift Parking.', 'Confirm' );
 
@@ -129,6 +135,7 @@
 
 
       $("#submit").click(function() {
+
         function post(URL, PARAMS) {
           var temp = document.createElement("form");
           temp.action = URL;
@@ -166,6 +173,7 @@
             message:'Loging...',
             type:'success'
           });
+          Notiflix.Loading.Standard();
           post("/login", body);
         }
 

@@ -2,11 +2,13 @@ package hku.eee.controller;
 
 import com.alipay.api.domain.AlipayTradeWapPayModel;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.sun.tools.javac.jvm.Items;
 import hku.eee.domain.*;
 import hku.eee.service.AccountService;
 import hku.eee.service.CarService;
 import hku.eee.service.ParkService;
+import hku.eee.service.UserService;
 import hku.eee.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -48,6 +50,9 @@ public class AccountController {
 
     @Autowired
     private ParkService parkService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/findAll.do")
     public ModelAndView findAll() {
@@ -351,7 +356,7 @@ public class AccountController {
     }
 
     @RequestMapping("/transferOut.do")
-    public String transferOut(String receiver, Double amount, Model model) {
+    public String transferOut(String receiver, Double amount, Model model, Authentication authentication) {
 
         model.addAttribute("title", "Transfer");
         try {
@@ -360,6 +365,17 @@ public class AccountController {
             model.addAttribute("message", e.getMessage());
             return "redirect:/message/error/error.jsp";
         }
+
+        Account sender = accountService.findByUserName(authentication.getName());
+        Account newreceiver = accountService.findByUserName(receiver);
+        TransferRecord record = new TransferRecord();
+        record.setTimestamp(DataUtils.dateToString(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        record.setAmount(amount);
+        record.setNote("hello");
+        record.setSender_id(sender.getId());
+        record.setReceiver_id(newreceiver.getId());
+        accountService.addTransferRecord(record);
+
         String message = "Successful Transfer!";
         model.addAttribute("message", message);
         return "redirect:/message/success/success.jsp";
@@ -404,10 +420,35 @@ public class AccountController {
         List<Car> myCars = accountService.findMyCars(authentication);
         Park parknow = parkService.findByUserName(park);
         for (Car car: myCars) {
-            if(car.getPark() == 2 || car.getPark() == parknow.getId()) {
+            if(car.getPark() == 2) {
                 newList.add(car);
             }
         }
+        mv.addObject("isEmpty", Boolean.toString(newList.isEmpty()));
+        mv.addObject("park", parknow);
+        mv.addObject("myCars", newList);
+        mv.setViewName("/account/cars/choose");
+        return mv;
+    }
+
+    @RequestMapping("/payBill.do")
+    public ModelAndView payBill(String park, Authentication authentication) {
+        ModelAndView mv = new ModelAndView();
+        LinkedList<Car> newList = new LinkedList<>();
+        List<Car> myCars = accountService.findMyCars(authentication);
+        Park parknow = parkService.findByUserName(park);
+        for (Car car: myCars) {
+            if(car.getPark().equals(parknow.getId())) {
+                newList.add(car);
+            }
+        }
+        if(newList.isEmpty()) {
+            mv.addObject("title", "Wrong");
+            mv.addObject("message", "No Car is parking here!");
+            mv.setViewName("redirect:/message/error/error.jsp");
+            return mv;
+        }
+
         mv.addObject("isEmpty", Boolean.toString(newList.isEmpty()));
         mv.addObject("park", parknow);
         mv.addObject("myCars", newList);
@@ -427,6 +468,8 @@ public class AccountController {
         Double bill = accountService.bill(parking, parknow.getPrice());
         String fromTime = DataUtils.dateToString(parking.getTimestamp(), "yyyy.MM.dd HH:mm");
         String endTime = DataUtils.dateToString(new Date(), "yyyy.MM.dd HH:mm");
+        List<Card> cards = userService.findMyCards(account.getId());
+        mv.addObject("cards", cards);
         mv.addObject("licence", car.getLicence());
         mv.addObject("bill", bill);
         mv.addObject("park", parknow);
@@ -473,6 +516,19 @@ public class AccountController {
             return "redirect:/message/error/error.jsp";
         }
 
+        Park newpark = parkService.findByUserName(park);
+        Account newpayer = accountService.findByUserName(payer);
+        Date timestamp = new Date();
+        BillRecord newRecord = new BillRecord();
+        newRecord.setTimestamp(DataUtils.dateToString(timestamp, "yyyy-MM-dd HH:mm:ss"));
+        newRecord.setAmount(Double.valueOf(bill));
+        Date stamp = new Date();
+        String trade_no = car + "@" + String.valueOf(stamp.getTime());
+        newRecord.setTrade_no(trade_no);
+        newRecord.setPark_id(newpark.getId());
+        newRecord.setPayer_id(newpayer.getId());
+        accountService.addBillRecord(newRecord);
+
         Parking parking = accountService.findParking(car);
         accountService.removeParking(parking);
         String message = "Successful Payment!";
@@ -480,5 +536,81 @@ public class AccountController {
         return "redirect:/message/success/success.jsp";
 
     }
+
+    @RequestMapping("/payByCard.do")
+    public String payByCard(String car, String park, Double bill, Integer card, Authentication authentication, Model model) {
+        String payer = authentication.getName();
+        model.addAttribute("title", "Payment");
+        try {
+            accountService.payByCard(payer, park, card, bill);
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return "redirect:/message/error/error.jsp";
+        }
+
+        Park newpark = parkService.findByUserName(park);
+        Account newpayer = accountService.findByUserName(payer);
+        Date timestamp = new Date();
+        BillRecord newRecord = new BillRecord();
+        newRecord.setTimestamp(DataUtils.dateToString(timestamp, "yyyy-MM-dd HH:mm:ss"));
+        newRecord.setAmount(Double.valueOf(bill));
+        Date stamp = new Date();
+        String trade_no = car + "@" + String.valueOf(stamp.getTime());
+        newRecord.setTrade_no(trade_no);
+        newRecord.setPark_id(newpark.getId());
+        newRecord.setPayer_id(newpayer.getId());
+        accountService.addBillRecord(newRecord);
+
+        Parking parking = accountService.findParking(car);
+        accountService.removeParking(parking);
+        String message = "Successful Payment!";
+        model.addAttribute("message", message);
+        return "redirect:/message/success/success.jsp";
+
+    }
+
+
+
+
+    @RequestMapping("/findRecord.do")
+    public ModelAndView findRecord(Authentication authentication) throws ParseException {
+        List<Map<String, String>> records = accountService.findRecord(authentication);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/history/record");
+        mv.addObject("records", records);
+        return mv;
+    }
+
+    @RequestMapping("/findMyCards.do")
+    public ModelAndView findMyCards(Authentication authentication) {
+        Account account = accountService.findByUserName(authentication.getName());
+        List<Card> cards = userService.findMyCards(account.getId());
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("cards", cards);
+        mv.setViewName("/card/card");
+        return mv;
+    }
+
+    @RequestMapping("/card.do")
+    public ModelAndView card(Authentication authentication) {
+        Account account = accountService.findByUserName(authentication.getName());
+        ModelAndView mv = new ModelAndView();
+        List<Card> cards = userService.findMyCards(account.getId());
+        mv.setViewName("/account/refund/refund");
+        mv.addObject("balance", account.getBalance());
+        mv.addObject("cards", cards);
+        return mv;
+    }
+
+    @RequestMapping("/verifyKey.do")
+    public @ResponseBody
+    Map<String, String> verifyKey(String key, Authentication authentication) {
+        boolean res = accountService.verifyKey(authentication.getName(), key);
+        System.out.println(res);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("valid", Boolean.toString(res));
+        return map;
+    }
+
 
 }

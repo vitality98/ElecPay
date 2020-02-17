@@ -11,13 +11,17 @@
         <meta content="telephone=no" name="format-detection"/>
         <link href="/account/parks/css/style.css" rel="stylesheet" type="text/css"/>
         <script src="/account/js/jquery.js" type="text/javascript"></script>
+
+        <link rel="stylesheet" href="/admin/dist/notiflix-1.3.0.min.css">
+        <script src="/admin/dist/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
     </head>
     <body>
 
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed b-line">
-                <a href="javascript: window.history.back(-1);" class="aui-navBar-item">
+                <a href="javascript: window.history.back(-1);" class="loading aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">
@@ -58,7 +62,7 @@
                                 </a>
                                     <div>
                                         <div class="wrapper">
-                                            <a class="cta" href="/developing/developing.html">
+                                            <a class="loading cta" href="/developing/developing.html">
                                                 <span>&nbsp&nbspNavigate </br>>>></span>
                                                 <span>
       <svg width="80px" height="30px" viewBox="0 0 80 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -72,6 +76,15 @@
 
                         <script>
                             $(function() {
+                                Notiflix.Loading.Init({
+                                    clickToClose:false
+                                });
+                                $('.loading').each(function () {
+                                    $(this).click(function(){
+                                        Notiflix.Loading.Standard();
+                                    })
+                                })
+
                                 $.ajax({
                                     url: "/park/countCar.do",
                                     data: "id=${park.id}",

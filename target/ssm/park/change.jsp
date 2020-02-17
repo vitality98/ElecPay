@@ -50,13 +50,13 @@
 <body ontouchstart>
     <div class="wx-header clearfix flex">
         <div class="wx-header-left">
-            <a href="javascript:window.history.back(-1);">
+            <a class="loading" href="javascript:window.history.back(-1);">
 	  				<i class="iconfont icon-zuo"></i>
 	  			</a>
         </div>
         <h1 class="flex-1">Balance</h1>
         <div class="wx-header-right">
-            <a href="javascript:;">
+            <a class="loading" href="/park/findRecord.do">
                 <p>history</p>
             </a>
         </div>
@@ -69,7 +69,7 @@
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-                <a id="refund" href="javascript:;" class="weui-btn weui-btn_primary wx_btn">Refund</a>
+                <a id="refund" href="/park/card.do" class="loading weui-btn weui-btn_primary wx_btn">Refund</a>
                 <a id="setting" href="javascript:;" class="weui-btn weui-btn_default wx_btn">Setting Price</a>
             </p>
         </div>
@@ -112,17 +112,17 @@
         }
 
     $(function() {
-        FastClick.attach(document.body);
-
-        $("#refund").click(function() {
-            Notiflix.Report.Info( 'Sorry!', 'Because the alipay or bank regulation, this app demo can not apply for a refund-api. That will make it in the future.', 'Confirm' );
-
+        $(".loading").each(function () {
+            $(this).click(function() {
+                Notiflix.Loading.Standard();
+            })
         })
 
+        FastClick.attach(document.body);
 
         setting.onclick = function(){
 
-            Dialog.init('<input type="number" min="0" max="9999" onkeyup="onlyNumber(this)" placeholder="price (¥/h)"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
+            Dialog.init('<input type="number" min="0" max="9999" onkeyup="onlyNumber(this)" oninput="if(value.length>5)value=value.slice(0,5);" placeholder="price (¥/h)"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
                 title : 'Change price of your park.',
                 button : {
                     Confirm : function(){
@@ -133,6 +133,7 @@
                                 Dialog.init('price can not be null!',1100);
                             }
                             else {
+                                Notiflix.Loading.Standard();
                                 Dialog.init('Waiting...', 300);
                                 $.ajax({
                                     url: "/park/changePrice.do",
@@ -143,6 +144,7 @@
                                     success: function(data){
                                         Notiflix.Report.Success( 'Change Success!', 'The price has been updated.', 'Confirm' );
                                         NXReportButton.onclick = function() {
+                                            Notiflix.Loading.Standard();
                                             window.history.go(0);
                                         }
                                     }

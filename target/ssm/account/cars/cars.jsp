@@ -73,7 +73,7 @@
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed b-line">
-                <a href="javascript:window.history.back(-1);" class="aui-navBar-item">
+                <a href="javascript:window.history.back(-1);" class="loading aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">
@@ -87,7 +87,7 @@
                 <div class="aui-follow-box">
 
                     <c:forEach items="${myCars}" var="car">
-                        <a href="javascript:;" class="aui-flex b-line">
+                        <a style="box-shadow:0 1px 3px #a5a5a5;" href="javascript:;" class="aui-flex b-line">
                             <div class="aui-follow-img">
                                 <img src="/account/cars/images/me-car-005.png" alt="">
                             </div>
@@ -141,18 +141,25 @@
                                 });
 
                                 $("#${car.licence}").click(function(){
-                                    Notiflix.Confirm.Show( 'Warning', 'Delete this car?', 'Yes', 'No', function(){
-                                        $.ajax({
-                                            url: "/car/removeAccount.do",
-                                            data: "licence=${car.licence}",
-                                            contentType: "application/x-www-form-urlencoded",
-                                            type: "post",
-                                            dataType: "json",
-                                            success: function(data){
-                                                window.history.go(0);
-                                            }
-                                        });
-                                    } );
+                                    if(${car.park != 2}) {
+                                        Notiflix.Report.Failure( 'Wrong', 'Can not delete a car still in parking.', 'Cancel');
+                                    }
+                                    else {
+                                        Notiflix.Confirm.Show( 'Warning', 'Delete this car?', 'Yes', 'No', function(){
+                                            Notiflix.Loading.Standard();
+                                            $.ajax({
+                                                url: "/car/removeAccount.do",
+                                                data: "licence=${car.licence}",
+                                                contentType: "application/x-www-form-urlencoded",
+                                                type: "post",
+                                                dataType: "json",
+                                                success: function(data){
+
+                                                    window.history.go(0);
+                                                }
+                                            });
+                                        } );
+                                    }
                                 })
 
 
@@ -174,15 +181,22 @@
     <script>
 
         $(function() {
+            $(".loading").each(function () {
+                $(this).click(function() {
+                    Notiflix.Loading.Standard();
+                })
+            })
 
             addcar.onclick = function(){
-                Dialog.init('<input type="text" placeholder="4-12 characters"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
+                Dialog.init('<input type="text" placeholder="4-12 characters" oninput="if(value.length>10)value=value.slice(0,10);" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,\'\');" style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
                     title : 'Enter the Car\'s Licence Number！',
                     button : {
                         Add : function(){
+
                             var number = this.querySelector('input').value;
 
                             if(number.length >= 4 && number.length <=12){
+                                Notiflix.Loading.Standard();
                                 Dialog.init('Checking...', 300);
 
                                 $.ajax({
@@ -204,11 +218,15 @@
                                                 success: function(data){
                                                     if(data.done == "true") {
                                                         Notiflix.Report.Failure( 'Invalid Licence!', 'It may has been registered by others. Retype a new different Car Licence Number.', 'Cancel' );
-
+                                                        NXReportButton.onclick = function() {
+                                                            Notiflix.Loading.Standard();
+                                                            window.history.go(0);
+                                                        }
                                                     }
                                                     else {
                                                         Notiflix.Report.Success( 'Add Success!', 'The new car has been added to your account', 'Confirm' );
                                                         NXReportButton.onclick = function() {
+                                                            Notiflix.Loading.Standard();
                                                             window.history.go(0);
                                                         }
                                                     }
@@ -238,12 +256,16 @@
                                                         success: function(data){
                                                             if(data.done == "true") {
                                                                 Notiflix.Report.Failure( 'Invalid Licence!', 'It may has been registered by others. Retype a new different Car Licence Number.', 'Cancel');
-
+                                                                NXReportButton.onclick = function() {
+                                                                    Notiflix.Loading.Standard();
+                                                                    window.history.go(0);
+                                                                }
                                                             }
                                                             else {
                                                                 Notiflix.Report.Success( 'Add Success!', 'The new car has been added to your account', 'Confirm' );
 
                                                                 NXReportButton.onclick = function() {
+                                                                    Notiflix.Loading.Standard();
                                                                     window.history.go(0);
                                                                 }
 
@@ -277,13 +299,15 @@
             }
 
             addcar2.onclick = function(){
-                Dialog.init('<input type="text" placeholder="4-12 characters"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
+                Dialog.init('<input type="text" oninput="if(value.length>10)value=value.slice(0,10);" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,\'\');" placeholder="4-12 characters"  style="margin:8px 0;width:100%;padding:11px 8px;font-size:15px; border:1px solid #999;"/>',{
                     title : 'Enter the Car\'s Licence Number！',
                     button : {
                         Add : function(){
+
                             var number = this.querySelector('input').value;
 
                             if(number.length >= 4 && number.length <=12){
+                                Notiflix.Loading.Standard();
                                 Dialog.init('Checking...', 300);
 
                                 $.ajax({
@@ -305,12 +329,16 @@
                                                 success: function(data){
                                                     if(data.done == "true") {
                                                         Notiflix.Report.Failure( 'Invalid Licence!', 'It may has been registered by others. Retype a new different Car Licence Number.', 'Cancel');
-
+                                                        NXReportButton.onclick = function() {
+                                                            Notiflix.Loading.Standard();
+                                                            window.history.go(0);
+                                                        }
                                                     }
                                                     else {
                                                         Notiflix.Report.Success( 'Add Success!', 'The new car has been added to your account', 'Confirm' );
 
                                                         NXReportButton.onclick = function() {
+                                                            Notiflix.Loading.Standard();
                                                             window.history.go(0);
                                                         }
                                                     }
@@ -339,12 +367,15 @@
                                                         success: function(data){
                                                             if(data.done == "true") {
                                                                 Notiflix.Report.Failure('Invalid Licence!', 'It may has been registered by others. Retype a new different Car Licence Number.', 'Cancel' );
-
+                                                                NXReportButton.onclick = function() {
+                                                                    Notiflix.Loading.Standard();
+                                                                    window.history.go(0);
+                                                                }
                                                             }
                                                             else {
                                                                 Notiflix.Report.Success( 'Add Success!', 'The new car has been added to your account', 'Confirm' );
-
                                                                 NXReportButton.onclick = function() {
+                                                                    Notiflix.Loading.Standard();
                                                                     window.history.go(0);
                                                                 }
 

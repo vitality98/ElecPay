@@ -25,10 +25,12 @@ body {
 .grids-title h2 { font-size: 16px; font-weight: 400; color: #706f75;}
 
 .pay { display: flex; justify-content: space-between; height: 150px; border-radius: 10px; background-color: #3db271; overflow: hidden;}
-.pay-qrcode, .pay-wallet, .pay-logout { flex: 1; padding-top: 30px; text-align: center; color: #fefefe;}
+.pay-qrcode, .pay-wallet, .pay-logout, .pay-parkin { flex: 1; padding-top: 30px; text-align: center; color: #fefefe;}
 .pay-qrcode p, .pay-wallet p, .pay-logout p { height: 50px; margin-top: 10px;}
-.pay-qrcode i { display: inline-block; width: 32px; height: 32px; background: url(../images/qrcode.png) 50%  no-repeat; background-size: contain;}
-.pay-wallet i { display: inline-block; width: 32px; height: 32px; background: url(../images/wallet.png) 50% no-repeat; background-size: contain;}
+.pay-qrcode i { display: inline-block; width: 50px; height: 50px; background: url(../images/qrcode.png) 100%  no-repeat; background-size: contain;}
+.pay-wallet i { display: inline-block; width: 50px; height: 50px; background: url(../images/wallet.png) 100% no-repeat; background-size: contain;}
 .pay-wallet span { display: block; opacity: .5;}
-.pay-logout i { display: inline-block; width: 32px; height: 32px; background: url(../images/logout.png) 50% no-repeat; background-size: contain;}
+.pay-logout i { display: inline-block; width: 50px; height: 50px; background: url(../images/logout.png) 100% no-repeat; background-size: contain;}
 .pay-logout span { display: block; opacity: .5;}
+.pay-parkin i { display: inline-block; width: 60px; height: 60px; background: url(../images/parkin.png) 100% no-repeat; background-size: contain;}
+.pay-parkin span { display: block; opacity: .5;}

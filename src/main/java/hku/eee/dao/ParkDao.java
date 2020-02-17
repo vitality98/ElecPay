@@ -1,8 +1,6 @@
 package hku.eee.dao;
 
-import hku.eee.domain.Account;
-import hku.eee.domain.Car;
-import hku.eee.domain.Park;
+import hku.eee.domain.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -44,4 +42,10 @@ public interface ParkDao {
 
     @Update("update park set balance = #{balance} where username = #{username}")
     public void updatePark(Park park);
+
+    @Select("select * from bill_record where park_id = #{park_id}")
+    public List<BillRecord> findRecord(Integer park_id);
+
+    @Select("select * from refund_record where username = #{username} and role = 'ROLE_PARKHOST'")
+    public List<RefundRecord> findRefundRecord(String username);
 }

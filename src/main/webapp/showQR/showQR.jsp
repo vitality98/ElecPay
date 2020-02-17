@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Charge QR</title>
+        <title>${title}</title>
         <style>
             .sm{
                 width: 350px;
@@ -18,16 +18,20 @@
         <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
         <meta content="telephone=no" name="format-detection"/>
         <link href="/showQR/css/style.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="/admin/dist/notiflix-1.3.0.min.css">
+        <script src="/admin/dist/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
     </head>
     <body onLoad="createQrcode()">
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed b-line">
-                <a href="javascript:window.history.back(-1);" class="aui-navBar-item">
+                <a href="javascript:window.history.back(-1);" class="loading aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">
-                    <span class="aui-center-title">Charge QR</span>
+                    <span class="aui-center-title">${title}</span>
                 </div>
                 <a href="javascript:;" class="aui-navBar-item">
                     <i class="icon icon-sys"></i>
@@ -42,7 +46,7 @@
                         <p style="font-size: large">${emailORpark}</p>
                     </div>
                     <div class="aui-back-button">
-                        <button><a style="color: white" href="/user/returnHome.do">Return to Home</a></button>
+                        <button><a class="loading" style="color: white" href="/user/returnHome.do">Return to Home</a></button>
                     </div>
                 </div>
             </section>
@@ -53,7 +57,7 @@
         <script type="text/javascript" src="/showQR/js/utf.js"></script>
         <script type="text/javascript" src="/showQR/js/jquery.qrcode.js" ></script>
 
-        <c:if test="${role == 'account'}">
+        <c:if test="${role.equals('account')}">
             <script type="text/javascript">
                 function makeCode(url) {
                     $("#qrcode").qrcode({
@@ -68,7 +72,7 @@
                 }
             </script>
         </c:if>
-        <c:if test="${role == 'parkbay'}">
+        <c:if test="${role.equals('parkbay')}">
             <script type="text/javascript">
                 function makeCode(url) {
                     $("#qrcode").qrcode({
@@ -84,6 +88,16 @@
             </script>
         </c:if>
         <script>
+            $(function () {
+                Notiflix.Loading.Init({
+                    clickToClose:false
+                });
+                $(".loading").each(function () {
+                    $(this).click(function() {
+                        Notiflix.Loading.Standard();
+                    })
+                })
+            })
             function createQrcode () {
                 var url = "${role}" + "${username}";
                 makeCode(url);

@@ -26,6 +26,9 @@ public interface AccountDao {
     @Select("select * from account where username = #{username}")
     public Account findByUserName(String username);
 
+    @Select("select * from account where id = #{id}")
+    public Account findById(Integer id);
+
     @Update("update account set balance=#{balance} where username=#{username}")
     public void updateAccount(Account account);
 
@@ -44,8 +47,14 @@ public interface AccountDao {
     @Select("select * from topup_record where trade_no = #{trade_no}")
     public TopupRecord findTopupRecord(String trade_no);
 
+    @Select("select * from topup_record where username = #{username}")
+    public List<TopupRecord> findTopupRecordByUsername(String username);
+
     @Select("select * from bill_record where trade_no = #{trade_no}")
     public BillRecord findBillRecord(String trade_no);
+
+    @Select("select * from bill_record where payer_id = #{payer_id}")
+    public List<BillRecord> findBillRecordById(Integer payer_id);
 
     @Select("select * from parking where car = #{licence}")
     public Parking findParking(String licence);
@@ -56,4 +65,24 @@ public interface AccountDao {
     @Delete("delete from parking where car = #{licence}")
     public void removeParking(String licence);
 
+    @Insert("insert into transfer_record(sender_id, receiver_id, amount, timestamp, note) values(#{sender_id}, #{receiver_id}, #{amount}, #{timestamp}, #{note})")
+    public void addTransferRecord(TransferRecord transferRecord);
+
+    @Select("select * from transfer_record where sender_id = #{id} or receiver_id = #{id}")
+    public List<TransferRecord> findTransferRecord(Integer id);
+
+    @Insert("insert into refund_record(timestamp, amount, username, role) values(#{timestamp}, #{amount}, #{username}, #{role})")
+    public void addRefundRecord(RefundRecord record);
+
+    @Select("select * from refund_record where username = #{username} and role = 'ROLE_ACCOUNT'")
+    public List<RefundRecord> findRefundRecord(String username);
+
+    @Select("select * from user_key where username = #{username}")
+    public UserKey findKey(String username);
+
+    @Update("update user_key set key = #{key} where username = #{username}")
+    public void updateKey(@Param("username") String username, @Param("key") String key);
+
+    @Insert("insert into user_key(username, key) values(#{username}, #{key})")
+    public void addKey(@Param("username") String username, @Param("key") String key);
 }

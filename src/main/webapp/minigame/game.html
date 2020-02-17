@@ -9,6 +9,9 @@
 
 
 <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="/admin/dist/notiflix-1.3.0.min.css">
+	<script src="/admin/dist/jquery-1.11.0.min.js" type="text/javascript"></script>
+	<script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
 
 
 </head>
@@ -36,7 +39,7 @@
 		<h1>MiniGame</h1>
 		<button type="button" class="play-normal-btn">Start</button>
 		<button type="button" class="play-casual-btn">Free Mode</button>
-		<button type="button" onclick="javascript:window.history.back(-1);" class="play-casual-btn">Quit</button>
+		<button type="button" onclick="quit()" class="loading play-casual-btn">Quit</button>
 	</div>
 	<div class="menu menu--pause">
 		<h1>Pause</h1>
@@ -54,6 +57,16 @@
 </div>
   
 <script  src="js/index.js"></script>
+<script>
+
+	function quit() {
+		Notiflix.Loading.Init({
+			clickToClose:false
+		});
+		Notiflix.Loading.Standard();
+		window.history.back(-1);
+	}
+</script>
 
 </body>
 

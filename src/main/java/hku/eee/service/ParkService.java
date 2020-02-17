@@ -1,10 +1,12 @@
 package hku.eee.service;
 
+import hku.eee.domain.BillRecord;
 import hku.eee.domain.Car;
 import hku.eee.domain.Park;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ParkService {
 
@@ -21,4 +23,6 @@ public interface ParkService {
     public List<Car> findCars(Integer id);
 
     public void changePrice(Authentication authentication, Double price);
+
+    public List<Map<String, String>> findRecord(Integer park_id);
 }

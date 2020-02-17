@@ -61,7 +61,9 @@ public class test {
         System.out.println(new Date());
         System.out.println("hello world!");
         System.out.println("123");
-
+        Integer integer = new Integer(5);
+        boolean equals = integer.equals(5);
+        System.out.println(equals);
 
     }
 }

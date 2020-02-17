@@ -20,7 +20,7 @@
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed" style="background-color: #1b82d2">
-                <a href="javascript:window.history.back(-1);" class="aui-navBar-item">
+                <a href="javascript:window.history.back(-1);" class="loading aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">
@@ -38,43 +38,51 @@
                     </div>
                 </div>
                 <div class="aui-cells">
-                    <a href="/account/transfer/transfer.html" class="aui-cells-cell">
+                    <a href="/account/transfer/transfer.html" class="loading aui-cells-cell">
                         <div class="aui-cell-hd">
                             <h4>Transfer</h4>
                             <p>transfer to another account</p>
                         </div>
                         <span class="aui-cell-fr"></span>
                     </a>
-                    <a href="/user/showQR.do" class="aui-cells-cell">
+                    <a href="/user/showQR.do" class="loading aui-cells-cell">
                         <div class="aui-cell-hd">
                             <h4>Collect</h4>
                             <p>show my QR code</p>
                         </div>
                         <span class="aui-cell-fr"></span>
                     </a>
-                    <a href="/account/findMyCars.do" class="aui-cells-cell">
+                    <a href="/account/findMyCars.do" class="loading aui-cells-cell">
                         <div class="aui-cell-hd">
                             <h4>My Cars</h4>
                             <p>manage my cars</p>
                         </div>
                         <span class="aui-cell-fr"></span>
                     </a>
-                    <a href="/alipay/pay.jsp" class="aui-cells-cell">
+                    <a href="/account/findMyCards.do" class="loading aui-cells-cell">
                         <div class="aui-cell-hd">
-                            <h4>Top Up</h4>
-                            <p>Only support by Alipay</p>
+                            <h4>My Bank Cards</h4>
+                            <p>manage and add new card</p>
+                        </div>
+                        <span class="aui-cell-fr"></span>
+                    </a>
+                    <a href="/account/findRecord.do" class="loading aui-cells-cell">
+                        <div class="aui-cell-hd">
+                            <h4>History</h4>
+                            <p>review my balance record</p>
                         </div>
                         <span class="aui-cell-fr"></span>
                     </a>
                 </div>
             </section>
             <footer class="aui-footer">
-                <a href="/alipay/pay.jsp" class="aui-forward">Top Up</a>
-                <a id="refund" href="javascript:;" class="aui-recharge">Refund</a>
+                <a href="/user/topupMenu.do" class="loading aui-forward">Top Up</a>
+                <a id="refund" href="/account/card.do" class="loading aui-recharge">Refund</a>
             </footer>
         </section>
 
         <script>
+            /*
             $(function() {
                 $("#refund").click(function() {
                     Notiflix.Report.Init();
@@ -84,6 +92,18 @@
                     Notiflix.Report.Info( 'Sorry!', 'Because the alipay or bank regulation, this app demo can not apply for a refund-api. That will make it in the future.', 'Confirm' );
                 })
 
+            })
+             */
+            $(function () {
+                Notiflix.Loading.Init({
+                    clickToClose:false
+                });
+
+                $(".loading").each(function () {
+                    $(this).click(function() {
+                        Notiflix.Loading.Standard();
+                    })
+                })
             })
         </script>
     </body>
