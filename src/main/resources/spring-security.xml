@@ -19,8 +19,7 @@
     <http pattern="/account/verifyUser.do" security="none"/>
     <http pattern="/developing/**" security="none"/>
     <http pattern="/developing/developing.html" security="none"/>
-
-
+    
 
     <http auto-config="false" use-expressions="false">
         <intercept-url pattern="/account/totalBill.do" access="ROLE_ACCOUNT,ROLE_PARKHOST" />

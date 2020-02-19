@@ -8,7 +8,7 @@ public class AlipayConfig {
 	// 服务器异步通知页面路径 需http://或者https://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
 	public static String notify_url = "http://商户网关地址/account/topupNotify.do";
 	// 页面跳转同步通知页面路径 需http://或者https://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问 商户可以自定义同步跳转地址
-	public static String return_url = "http://192.168.0.110:8080/account/topupReturn.do";
+	public static String return_url = "http://47.113.82.180:80/account/topupReturn.do";
 	//中途推出付款页面
 	// 请求网关地址
 	public static String URL = "https://openapi.alipaydev.com/gateway.do";
