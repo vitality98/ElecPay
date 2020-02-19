@@ -32,6 +32,3 @@ password: park4<br>
 <br><br>
 Bank: Hello World Bank<br>
 Number: 9999999999
-
-
-Finally.
