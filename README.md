@@ -12,7 +12,7 @@ Electronic Payment Dissertation
 4. You could register a new account of SwiftParking, also using the following test account:
 <br><br>
 username: test<br>
-password: 123456<br>
+password: test<br>
 payment password: 111111
 <br><br>
 5. Suppot Alipay to top up balance. Take a notice that the alipay API is closed on Sunday.
