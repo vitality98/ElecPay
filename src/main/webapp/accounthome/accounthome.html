@@ -353,9 +353,10 @@
 																	title : 'Retype payment password:',
 																	button : {
 																		Confirm : function(){
-																			$("#NotiflixLoadingWrap").show();
+																			
 																			var newkey = this.querySelector('input').value;
 																			if(newkey.length == 6 && newkey == rekey){
+																				$("#NotiflixLoadingWrap").show();
 																				Dialog.init('waiting...', 300);
 																				$.ajax({
 																					url: "/account/newKey.do",
