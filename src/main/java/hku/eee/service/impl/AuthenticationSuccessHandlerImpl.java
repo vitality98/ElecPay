@@ -19,7 +19,6 @@ import java.util.List;
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        System.out.println("!!!!!!!!!!!!!!!!!!!!loginsuccess");
 
         SimpleGrantedAuthority authority = null;
         List<? extends GrantedAuthority> authorities = (List) authentication.getAuthorities();

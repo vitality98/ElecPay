@@ -14,27 +14,18 @@
 %>
 <%
 if(request.getParameter("WIDout_trade_no")!=null){
-	// 商户订单号，商户网站订单系统中唯一订单号，必填
     String out_trade_no = new String(request.getParameter("WIDout_trade_no").getBytes("ISO-8859-1"),"UTF-8");
     //out_trade_no = out_trade_no + SecurityContextHolder.getContext().getAuthentication().getName();
-	// 订单名称，必填
     String subject = new String(request.getParameter("WIDsubject").getBytes("ISO-8859-1"),"UTF-8");
 	System.out.println(subject);
-    // 付款金额，必填
     String total_amount=new String(request.getParameter("WIDtotal_amount").getBytes("ISO-8859-1"),"UTF-8");
-    // 商品描述，可空
     String body = new String(request.getParameter("WIDbody").getBytes("ISO-8859-1"),"UTF-8");
-    // 超时时间 可空
    String timeout_express="2m";
-    // 销售产品码 必填
     String product_code="QUICK_WAP_WAY";
     /**********************/
-    // SDK 公共请求类，包含公共请求参数，以及封装了签名与验签，开发者无需关注签名与验签     
-    //调用RSA签名方式
     AlipayClient client = new DefaultAlipayClient(AlipayConfig.URL, AlipayConfig.APPID, AlipayConfig.RSA_PRIVATE_KEY, AlipayConfig.FORMAT, AlipayConfig.CHARSET, AlipayConfig.ALIPAY_PUBLIC_KEY,AlipayConfig.SIGNTYPE);
     AlipayTradeWapPayRequest alipay_request=new AlipayTradeWapPayRequest();
     
-    // 封装请求支付信息
     AlipayTradeWapPayModel model=new AlipayTradeWapPayModel();
     model.setOutTradeNo(out_trade_no);
     model.setSubject(subject);
@@ -43,18 +34,14 @@ if(request.getParameter("WIDout_trade_no")!=null){
     model.setTimeoutExpress(timeout_express);
     model.setProductCode(product_code);
     alipay_request.setBizModel(model);
-    // 设置异步通知地址
     alipay_request.setNotifyUrl(AlipayConfig.notify_url);
-    // 设置同步地址
-    alipay_request.setReturnUrl(AlipayConfig.return_url);   
+    alipay_request.setReturnUrl(AlipayConfig.return_url);
     
-    // form表单生产
     String form = "";
 	try {
-		// 调用SDK生成表单
 		form = client.pageExecute(alipay_request).getBody();
 		response.setContentType("text/html;charset=" + AlipayConfig.CHARSET); 
-	    response.getWriter().write(form);//直接将完整的表单html输出到页面 
+	    response.getWriter().write(form);
 	    response.getWriter().flush(); 
 	    response.getWriter().close();
 	} catch (AlipayApiException e) {
@@ -214,19 +201,12 @@ if(request.getParameter("WIDout_trade_no")!=null){
 
     function onlyNumber(obj){
 
-        //得到第一个字符是否为负号    
         var t = obj.value.charAt(0);
-        //先把非数字的都替换掉，除了数字和.和-号    
         obj.value = obj.value.replace(/[^\d\.\-]/g,'');
-        //前两位不能是0加数字      
         obj.value = obj.value.replace(/^0\d[0-9]*/g,'');
-        //必须保证第一个为数字而不是.       
         obj.value = obj.value.replace(/^\./g,'');
-        //保证只有出现一个.而没有多个.       
         obj.value = obj.value.replace(/\.{2,}/g,'.');
-        //保证.只出现一次，而不能出现两次以上       
         obj.value = obj.value.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
-        //如果第一位是负号，则允许添加    
         obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
         if(t == '-'){ return; }
 

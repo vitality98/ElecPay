@@ -58,9 +58,7 @@
         <logout invalidate-session="true" logout-url="/logout" logout-success-url="/welcome/welcome.html" />
     </http>
 
-    <!-- 配置认证管理器 -->
     <authentication-manager alias="authenticationManager">
-        <!-- 认证的提供者 -->
         <authentication-provider user-service-ref="userServiceImpl">
             <password-encoder ref="passwordEncoder"/>
             <!--

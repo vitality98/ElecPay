@@ -21,7 +21,7 @@
     
     <script src="js/adaptive.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-    adaPtive(); //铺页面调用				
+    adaPtive();
 
     function adaPtive(max) { window['adaptive'].desinWidth = 720;
         window['adaptive'].baseFont = 24;
@@ -87,19 +87,12 @@
 
         function onlyNumber(obj){
 
-            //得到第一个字符是否为负号    
             var t = obj.value.charAt(0);
-            //先把非数字的都替换掉，除了数字和.和-号    
             obj.value = obj.value.replace(/[^\d\.\-]/g,'');
-            //前两位不能是0加数字      
             obj.value = obj.value.replace(/^0\d[0-9]*/g,'');
-            //必须保证第一个为数字而不是.       
             obj.value = obj.value.replace(/^\./g,'');
-            //保证只有出现一个.而没有多个.       
             obj.value = obj.value.replace(/\.{2,}/g,'.');
-            //保证.只出现一次，而不能出现两次以上       
             obj.value = obj.value.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
-            //如果第一位是负号，则允许添加    
             obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
             if(t == '-'){ return; }
 

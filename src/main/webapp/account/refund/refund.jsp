@@ -66,19 +66,12 @@
 
 		function onlyNumber(obj){
 
-			//得到第一个字符是否为负号    
 			var t = obj.value.charAt(0);
-			//先把非数字的都替换掉，除了数字和.和-号    
 			obj.value = obj.value.replace(/[^\d\.\-]/g,'');
-			//前两位不能是0加数字      
 			obj.value = obj.value.replace(/^0\d[0-9]*/g,'');
-			//必须保证第一个为数字而不是.       
 			obj.value = obj.value.replace(/^\./g,'');
-			//保证只有出现一个.而没有多个.       
 			obj.value = obj.value.replace(/\.{2,}/g,'.');
-			//保证.只出现一次，而不能出现两次以上       
 			obj.value = obj.value.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
-			//如果第一位是负号，则允许添加    
 			obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
 			if(t == '-'){ return; }
 
@@ -232,7 +225,7 @@
 
 
 
-			var okyMOneys=${balance};//模拟可用余额,实际使用的时候从数据库返回或其它的操作。
+			var okyMOneys=${balance};
 			var oGetAll=document.getElementById("getall");
 			var oGetMoneys=document.getElementById("getmoneys");
 			var oGetOut=document.getElementById("getout");
@@ -240,7 +233,7 @@
 
 
 
-			oGetMoneys.oninput=function()//监听用户的输入给出相应提示。
+			oGetMoneys.oninput=function()
 			{
 				 if(oGetMoneys.value=="")
 				 {
@@ -260,17 +253,15 @@
 				 	//oGetMoneys.value=sjdz.toFixed(2);
 					oKyye.innerHTML="Extra￥"+sxf.toFixed(2)+" Service Charge（rate: 0.1%）";
 					oGetOut.style.opacity=1;
-					//这里就可以进行与后台交互的操作比如ajax操作等。
  				 }
 			};
 
 
 
-			//全部提现
 			oGetAll.onclick=function()
 			{
-				var parGetMoneys=parseFloat(oGetMoneys.value);//格式化成数字
-				var sjdz=okyMOneys-(okyMOneys*0.001);//手费0.1%
+				var parGetMoneys=parseFloat(oGetMoneys.value);
+				var sjdz=okyMOneys-(okyMOneys*0.001);
 				var sxf=okyMOneys*0.001;
 				oGetMoneys.value=sjdz.toFixed(2);
 				oKyye.innerHTML="Extra￥"+sxf.toFixed(2)+" Service Charge（rate: 0.1%）";

@@ -16,13 +16,10 @@
 </head>
 	
 <body>
-<!--头部  star-->
 <header style="color:#fff">
 	<a class="loading" href="/user/returnHome.do">
 		<div class="_left"><img src="/payment/images/left.png"></div><span>${park.name}</span></a>
 </header>
-<!--头部 end-->
-<!--内容 star-->
 <div class="contaniner fixed-cont">
 	<div class="pay_img"><img src="/payment/images/pay.jpg"></div>
     
@@ -32,7 +29,6 @@
         <li>From: ${fromTime} to ${endTime}</li>
     </div>
     
-    <!--支付 star-->
 	<div class="pay">
 		<div class="show">
     		<li><label><img src="/payment/images/yue.png" >Balance<input id="balance" checked="" name="Fruit" type="radio" value="balance" /><span></span></label> </li>
@@ -45,8 +41,7 @@
 	</div>
 	<a class="loading" href="/account/findMyCards.do" style="text-align: center;display: block;margin-top: 7rem;color: #565899">click to add a new card</a>
 	<div style="text-align: center;margin-top: 0.5rem;color: grey">Provide discount for over 24 hours parking</div>
-    <!--支付 end--> 
-    
+
     
 </div>
 
@@ -58,7 +53,6 @@
     </div>
 	</a>
 </div>
-<!--内容 end-->
 
 <script type="text/javascript" src="/payment/js/jquery-1.8.2.min.js" ></script>
 <script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>

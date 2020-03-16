@@ -15,16 +15,12 @@
 </head>
 	
 <body>
-<!--头部  star-->
 <header style="color:#fff">
 	<a class="loading" href="javascript:window.history.back(-1);">
 		<div class="_left"><img src="/payment/images/left.png"></div><span>Top Up</span></a>
 </header>
-<!--头部 end-->
-<!--内容 star-->
 <div class="contaniner fixed-cont">
 	<div class="pay_img"><img src="/payment/images/pay.jpg"></div>
-    <!--支付 star-->
 	<div class="pay">
 		<div class="show">
 			<li><label><img src="/payment/images/zhifubao.png" >Alipay<input id="alipay" checked="" name="Fruit" type="radio" value="alipay" /><span></span></label> </li>
@@ -34,7 +30,6 @@
 		</div>
 	</div>
 	<a class="loading" href="/account/findMyCards.do" style="text-align: center;display: block;margin-top: 4rem;color: #565899">click to add a new card</a>
-    <!--支付 end--> 
 
 </div>
 
@@ -46,8 +41,7 @@
 		</div>
 	</a>
 </div>
-<!--内容 end-->
-        
+
 <script type="text/javascript" src="/payment/js/jquery-1.8.2.min.js" ></script>
 <script src="/admin/dist/notiflix-1.3.0.min.js" type="text/javascript"></script>
 <script type="text/javascript">

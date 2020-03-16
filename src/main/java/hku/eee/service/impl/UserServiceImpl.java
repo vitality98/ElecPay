@@ -40,13 +40,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String userLoginName = username.substring(7);
         if("account".equals(userRole)) {
 
-            /*-- super administrator
-
-            if("adminlxr".equals(userLoginName)) {
-                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-                return new User(userLoginName, "123456", authorities);
-            }
-            end*/
 
             Account account = accountDao.findByUserName(userLoginName);
             if (account == null)
