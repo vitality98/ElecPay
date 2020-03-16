@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+        xmlns="http://www.springframework.org/schema/security"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http pattern="/admin/dist/**" security="none"/>
+    <http pattern="/admin/plugins/**" security="none"/>
+    <http pattern="/admin/pages/**" security="none"/>
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/img/**" security="none"/>
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/plugins/**" security="none"/>
+    <http pattern="/welcome/**" security="none"/>
+    <http pattern="/welcome/welcome.html" security="none"/>
+    <http pattern="/account/register.do" security="none"/>
+    <http pattern="/account/verifyUser.do" security="none"/>
+    <http pattern="/developing/**" security="none"/>
+    <http pattern="/developing/developing.html" security="none"/>
+    
+
+    <http auto-config="false" use-expressions="false">
+        <intercept-url pattern="/account/totalBill.do" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
+        <intercept-url pattern="/park/findAll.do" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
+        <intercept-url pattern="/park/countCar.do" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
+        <intercept-url pattern="/park/findParkById.do" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
+        <intercept-url pattern="/accounthome/**" access="ROLE_ACCOUNT" />
+        <intercept-url pattern="/account/**" access="ROLE_ACCOUNT" />
+        <intercept-url pattern="/parkhome/**" access="ROLE_PARKHOST" />
+        <intercept-url pattern="/park/**" access="ROLE_PARKHOST" />
+        <intercept-url pattern="/**" access="ROLE_ACCOUNT,ROLE_PARKHOST" />
+
+
+
+        <!-- form-login autoHandle:
+                default-target-url="/index.jsp"
+                always-use-default-target="false"
+                authentication-failure-url="/index.html"
+        -->
+
+        <form-login
+                username-parameter="username"
+                password-parameter="password"
+                login-page="/admin/pages/login.html"
+                login-processing-url="/login"
+                authentication-success-handler-ref="loginSuccessHandler"
+                authentication-failure-handler-ref="loginFailureHandler"
+                />
+
+        <csrf disabled="true"/>
+        <!--
+        <headers>
+            <frame-options policy="SAMEORIGIN"/>
+        </headers>
+        -->
+        <logout invalidate-session="true" logout-url="/logout" logout-success-url="/welcome/welcome.html" />
+    </http>
+
+    <!-- 配置认证管理器 -->
+    <authentication-manager alias="authenticationManager">
+        <!-- 认证的提供者 -->
+        <authentication-provider user-service-ref="userServiceImpl">
+            <password-encoder ref="passwordEncoder"/>
+            <!--
+
+            <user-service>
+                <user name="accountadminlxr" password="{noop}123456" authorities="ROLE_ADMIN"/>
+                <user name="wc" password="123456" authorities="ROLE_ADMIN"/>
+            </user-service>
+            -->
+
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="loginSuccessHandler" class="hku.eee.service.impl.AuthenticationSuccessHandlerImpl" />
+    <beans:bean id="loginFailureHandler" class="hku.eee.service.impl.AuthenticationFailureHandlerImpl" />
+    <beans:bean id="passwordEncoder" class="hku.eee.service.impl.MyPasswordEncoder" />
+    <beans:bean id="userServiceImpl" class="hku.eee.service.impl.UserServiceImpl" />
+
+</beans:beans>
