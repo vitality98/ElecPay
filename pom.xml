@@ -80,7 +80,7 @@
     <mysql.version>8.0.18</mysql.version>
     <mybatis.version>3.4.5</mybatis.version>
     <jackson.version>2.9.9</jackson.version>
-    <security.version>5.0.2.RELEASE</security.version>
+    <security.version>5.5.7</security.version>
 
   </properties>
 
